@@ -47,6 +47,7 @@
                             Foreground="Black"
                             FontWeight="Light"
                             Click="ButtonClose_Click"
+                            
                             />
                 </StackPanel>
 
@@ -77,15 +78,18 @@
                 <TextBox Height ="30" Width="200"
                          FontSize="18"
                          Foreground="DimGray"/>
-                <TextBox Height ="30" Width="200"
+                
+                <PasswordBox Height ="30" Width="200"
                          Margin="10"
                          FontSize="18"
                          Foreground="DimGray"/>
+                
                 <Button Width="100"
+                        Height="35"
                         Content="Requester"
                         Margin="10"
-                        Style="{StaticResource TabButton}"
-                        Click="ButtonRequester_Click"/>
+                        Click="ButtonRequester_Click"
+                        Style="{StaticResource MyButtonStyle}"/>
             </StackPanel>
         </Grid>
     </Grid>
