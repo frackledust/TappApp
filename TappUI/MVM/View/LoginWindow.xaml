@@ -1,0 +1,92 @@
+﻿<Window x:Class="TappUI.MVM.View.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TappUI" xmlns:viewmodel="clr-namespace:TappUI.MVM.ViewModel"
+        mc:Ignorable="d"
+        Height="600" Width="400"
+        Background="#36393F"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        ShowInTaskbar="False"
+        HorizontalAlignment="Center">
+
+    <Window.DataContext>
+        <viewmodel:LoginViewModel/>
+    </Window.DataContext>
+
+    <Grid Background="#292b2F" >
+        <!-- Rows -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!-- Cols comment -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="75"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Green horizontal panel -->
+        <Border Grid.ColumnSpan="4"
+                Background="MediumAquamarine"
+                MouseDown="Border_MouseDown">
+
+            <Grid HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Right"
+                            Orientation="Horizontal"
+                            Margin="0,0,5,0">
+
+                    <Button Width="20" Height="20" Content="✕"
+                            Background = "Transparent"
+                            BorderThickness="0"
+                            Foreground="Black"
+                            FontWeight="Light"
+                            Click="ButtonClose_Click"
+                            />
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+        <!-- Light gray panel -->
+        <Grid Background="#36393F" Grid.Row ="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Bottom"
+                   Margin="0,0,0,10"
+                   FontFamily="Microsoft YaHei UI Light"
+                   Content="=下 app =" FontSize="36"
+                   BorderBrush="Black"
+                   Foreground="MediumAquamarine"
+                   />
+
+            <!-- Login panel -->
+            <StackPanel Grid.Row ="1" Grid.Column="1" HorizontalAlignment="Center">
+                <Label Content="Login:" FontSize="16"/>
+                <TextBox Height ="30" Width="200"
+                         FontSize="18"
+                         Foreground="DimGray"/>
+                <TextBox Height ="30" Width="200"
+                         Margin="10"
+                         FontSize="18"
+                         Foreground="DimGray"/>
+                <Button Width="100"
+                        Content="Requester"
+                        Margin="10"
+                        Style="{StaticResource TabButton}"
+                        Click="ButtonRequester_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>
