@@ -27,9 +27,9 @@ namespace TappUI.MVM.View
         private void ButtonRequester_Click(object sender, RoutedEventArgs e)
         {
             RequesterWindow requesterWindow = new RequesterWindow();
-            requesterWindow.Show();
-
             this.Close();
+
+            requesterWindow.Show();
         }
     }
 }

@@ -8,4 +8,9 @@
     <AssemblyName>TappApp</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TappModels\TappModels.csproj" />
+    <ProjectReference Include="..\TappService\TappService.csproj" />
+  </ItemGroup>
+
 </Project>

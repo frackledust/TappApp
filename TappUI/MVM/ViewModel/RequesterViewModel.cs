@@ -8,8 +8,9 @@ namespace TappUI.MVM.ViewModel
     {
         public ObservableCollection<ProjectModel> Projects { get; set; }
 
-        public RequesterViewModel()
+        public RequesterViewModel(string username)
         {
+
             Projects = new ObservableCollection<ProjectModel>();
 
 

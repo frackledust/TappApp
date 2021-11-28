@@ -78,12 +78,7 @@
                 <TextBox Height ="30" Width="200"
                          FontSize="18"
                          Foreground="DimGray"/>
-                
-                <PasswordBox Height ="30" Width="200"
-                         Margin="10"
-                         FontSize="18"
-                         Foreground="DimGray"/>
-                
+
                 <Button Width="100"
                         Height="35"
                         Content="Requester"

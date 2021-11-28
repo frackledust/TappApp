@@ -8,7 +8,7 @@ namespace TappUI.MVM.Model
 {
     internal class ProjectModel
     {
-        public string ProjectName { get; set; }
-        public string RequesterName { get; set; }
+        public string? ProjectName { get; set; }
+        public string? RequesterName { get; set; }
     }
 }

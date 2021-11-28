@@ -3,7 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TappUI", "TappUI\TappUI.csproj", "{C46E4BD8-69B4-4521-8DF9-96678439A68E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TappUI", "TappUI\TappUI.csproj", "{C46E4BD8-69B4-4521-8DF9-96678439A68E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TappData", "TappData\TappData.csproj", "{2920D020-BACB-4035-996F-10E0DC492677}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TappModels", "TappModels\TappModels.csproj", "{78631742-0C7F-4B72-A25D-195CB3A004E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TappService", "TappService\TappService.csproj", "{356F9A54-C7F7-4323-90FD-B197FF0F2CCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TappConsole", "TappConsole\TappConsole.csproj", "{CC5EA3BB-9A99-4D49-BCE8-1CF100EB247D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{78631742-0C7F-4B72-A25D-195CB3A004E7} = {78631742-0C7F-4B72-A25D-195CB3A004E7}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +26,22 @@ Global
 		{C46E4BD8-69B4-4521-8DF9-96678439A68E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C46E4BD8-69B4-4521-8DF9-96678439A68E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C46E4BD8-69B4-4521-8DF9-96678439A68E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2920D020-BACB-4035-996F-10E0DC492677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2920D020-BACB-4035-996F-10E0DC492677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2920D020-BACB-4035-996F-10E0DC492677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2920D020-BACB-4035-996F-10E0DC492677}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78631742-0C7F-4B72-A25D-195CB3A004E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78631742-0C7F-4B72-A25D-195CB3A004E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78631742-0C7F-4B72-A25D-195CB3A004E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78631742-0C7F-4B72-A25D-195CB3A004E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{356F9A54-C7F7-4323-90FD-B197FF0F2CCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{356F9A54-C7F7-4323-90FD-B197FF0F2CCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{356F9A54-C7F7-4323-90FD-B197FF0F2CCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{356F9A54-C7F7-4323-90FD-B197FF0F2CCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC5EA3BB-9A99-4D49-BCE8-1CF100EB247D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC5EA3BB-9A99-4D49-BCE8-1CF100EB247D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC5EA3BB-9A99-4D49-BCE8-1CF100EB247D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC5EA3BB-9A99-4D49-BCE8-1CF100EB247D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
