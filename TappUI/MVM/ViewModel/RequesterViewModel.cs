@@ -8,26 +8,16 @@ namespace TappUI.MVM.ViewModel
 {
     class RequesterViewModel
     {
-        public ObservableCollection<ProjectModel> Projects { get; set; }
+        public ObservableCollection<Project> ShownProjects { get; set; }
 
         public Project SelectedProject { get; set; }
 
         public RequesterViewModel(string username)
         {
 
-            Projects = new ObservableCollection<ProjectModel>();
-
             Collection<Project> loaded_projects = UserService.LoadProjects(username, "requester");
-
-            foreach (Project project in loaded_projects)
-            {
-                ProjectModel model = new ProjectModel();
-                model.ProjectName = project.Name;
-                model.RequesterName = username;
-
-                Projects.Add(model);
-            }
-
+            
+            ShownProjects = new ObservableCollection<Project>(loaded_projects);
         }
     }
 }

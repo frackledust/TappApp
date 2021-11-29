@@ -81,7 +81,8 @@
                    Foreground="Gray"
                    Margin="8,0,0,0"/>
 
-            <ListView ItemsSource="{Binding Projects}"
+            <ListView ItemsSource="{Binding ShownProjects}"
+                      SelectedItem="{Binding SelectedProject}"
                       Background="Transparent"
                       BorderThickness="0"
                       Grid.Row="1"
@@ -110,6 +111,33 @@
                 </StackPanel>
 
             </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="38*"/>
+            </Grid.RowDefinitions>
+            <Border BorderThickness="20"
+                    BorderBrush="#2F3136"
+                    Height="200"
+                    Width="250" Margin="10,0,0,370"
+                    HorizontalAlignment="Left" Grid.Row="1">
+                <TextBlock Text="{Binding SelectedProject.Original_text}"
+                       Background="#2F3136"
+                       Foreground="Gray">
+                </TextBlock>
+            </Border>
+
+            <Border BorderThickness="20"
+                    BorderBrush="#2F3136"
+                    Height="200"
+                    Width="250" Margin="290,0,0,370"
+                    HorizontalAlignment="Left" Grid.Row="1">
+                <TextBlock Text="{Binding SelectedProject.Translated_text}"
+                       Background="#2F3136"
+                       Foreground="Gray">
+                </TextBlock>
+            </Border>
         </Grid>
     </Grid>
 </Window>

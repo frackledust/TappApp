@@ -16,33 +16,9 @@ namespace TappConsole
                 isLogged = login.Init();
             }
 
-
-            while(true)
+            if(login.User_role == "requester")
             {
-                login.ShowProjects();
-
-                Console.WriteLine("Choose: [f] for filter, [a] for show all or [q] for quit");
-                ConsoleKeyInfo key = Console.ReadKey();
-
-                if (key.KeyChar == 'f')
-                {
-                    Console.Clear();
-                    Console.WriteLine("Choose commands: [translated]");
-                    string commands = Console.ReadLine();
-
-
-                    FilterService<Project> filterService = new FilterService<Project>();
-                    login.Shown_projects = filterService.Filter(commands, login.User_projects);
-                }
-                else if (key.KeyChar == 'a')
-                {
-                    login.ShowAllProjects();
-                }
-                else if (key.KeyChar == 'q')
-                {
-                    Console.WriteLine("Thank you for using our app");
-                    return;
-                }
+                login.RequesterLoop();
             }
         }
     }

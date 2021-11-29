@@ -55,7 +55,7 @@ namespace TappService
                 string command = filters_commands.Substring(filters_commands.IndexOf(LanguageFilter.Command));
                 var parameters = command.Split('-');
 
-                bool of_translated = parameters[2] == "O" ? false : true;
+                bool of_translated = (parameters.Length < 3 || parameters[2] == "O") ? false : true;
 
                 filters.Add(new LanguageFilter(parameters[1], of_translated));
             }

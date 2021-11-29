@@ -38,6 +38,51 @@ namespace TappConsole
             Shown_projects = User_projects;
         }
 
+        public void RequesterLoop()
+        {
+            while (true)
+            {
+                ShowProjects();
+
+                Console.WriteLine("Choose:");
+                Console.WriteLine(">> [f] for filter");
+                Console.WriteLine(">> [a] for show all");
+                Console.WriteLine(">> [s] generate stats");
+                Console.WriteLine(">> [q] for quit");
+
+                ConsoleKeyInfo key = Console.ReadKey();
+
+                Console.Clear();
+                 
+                if (key.KeyChar == 'f')
+                {
+                    Console.Clear();
+                    Console.WriteLine("Choose commands:");
+                    Console.WriteLine(">> [translated] to filter translated");
+                    Console.WriteLine(">> [language-NAME-0/T], NAME = multiple language names, O - original language");
+                    string commands = Console.ReadLine();
+
+
+                    FilterService<Project> filterService = new FilterService<Project>();
+                    Shown_projects = filterService.Filter(commands, User_projects);
+                }
+                else if (key.KeyChar == 'a')
+                {
+                    ShowAllProjects();
+                }
+                else if (key.KeyChar == 's')
+                {
+                    string file_path = StatsService.GenerateStatsToCSV(Shown_projects);
+                    Console.WriteLine($"Find stats in file: {file_path}");
+                }
+                else if (key.KeyChar == 'q')
+                {
+                    Console.WriteLine("Thank you for using our app");
+                    return;
+                }
+            }
+        }
+
         public bool Init()
         {
             Console.WriteLine("Welcome in the app");
@@ -58,9 +103,11 @@ namespace TappConsole
 
             //Get username
             Console.WriteLine("\nWrite your username:");
-            Username = Console.ReadLine();
 
-            if (Username == null) { return false; }
+            while(Username == null || Username.Length == 0)
+            {
+                Username = Console.ReadLine();
+            }
 
             User_projects = UserService.LoadProjects(Username, User_role);
             Shown_projects = User_projects;
