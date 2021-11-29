@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using TappModels;
+using TappService;
 using TappUI.MVM.Model;
 
 namespace TappUI.MVM.ViewModel
@@ -8,28 +10,22 @@ namespace TappUI.MVM.ViewModel
     {
         public ObservableCollection<ProjectModel> Projects { get; set; }
 
+        public Project SelectedProject { get; set; }
+
         public RequesterViewModel(string username)
         {
 
             Projects = new ObservableCollection<ProjectModel>();
 
+            Collection<Project> loaded_projects = UserService.LoadProjects(username, "requester");
 
-            //Data for visibility sake
-            for (int i = 0; i < 4; i++)
+            foreach (Project project in loaded_projects)
             {
-                Projects.Add(new ProjectModel
-                {
-                    ProjectName = $"Project {i}",
-                    RequesterName = "Unknown",
-                });
+                ProjectModel model = new ProjectModel();
+                model.ProjectName = project.Name;
+                model.RequesterName = username;
 
-                i++;
-
-                Projects.Add(new ProjectModel
-                {
-                    ProjectName = $"Project {i}",
-                    RequesterName = "Zach",
-                });
+                Projects.Add(model);
             }
 
         }

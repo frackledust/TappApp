@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using TappUI.MVM.ViewModel;
 
 namespace TappUI.MVM.View
 {
@@ -26,10 +27,14 @@ namespace TappUI.MVM.View
 
         private void ButtonRequester_Click(object sender, RoutedEventArgs e)
         {
-            RequesterWindow requesterWindow = new RequesterWindow();
-            this.Close();
+            LoginViewModel? vm = this.DataContext as LoginViewModel;
 
-            requesterWindow.Show();
+            if(vm != null)
+            {
+                vm.Login();
+            }
+
+            this.Close();
         }
     }
 }

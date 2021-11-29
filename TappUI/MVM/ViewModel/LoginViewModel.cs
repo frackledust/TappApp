@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TappUI.MVM.View;
 
 namespace TappUI.MVM.ViewModel
 {
-    class LoginViewModel
+    public class LoginViewModel
     {
+        public string Username { get; set; }
 
+        public void Login()
+        {
+            RequesterWindow r = new RequesterWindow()
+            {
+                DataContext = new RequesterViewModel(Username),
+            };
+            r.Show();
+        }
     }
 }

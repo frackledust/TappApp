@@ -75,9 +75,11 @@
             <!-- Login panel -->
             <StackPanel Grid.Row ="1" Grid.Column="1" HorizontalAlignment="Center">
                 <Label Content="Login:" FontSize="16"/>
-                <TextBox Height ="30" Width="200"
+                <TextBox x:Name="UserNameBox"
+                         Height ="30" Width="200"
                          FontSize="18"
-                         Foreground="DimGray"/>
+                         Foreground="DimGray"
+                         Text="{Binding Username}"/>
 
                 <Button Width="100"
                         Height="35"

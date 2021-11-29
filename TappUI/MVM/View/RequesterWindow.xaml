@@ -10,10 +10,6 @@
         AllowsTransparency="True"
         ResizeMode="CanResizeWithGrip">
 
-    <Window.DataContext>
-        <viewmodel:RequesterViewModel/>
-    </Window.DataContext>
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
