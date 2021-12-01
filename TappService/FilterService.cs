@@ -41,7 +41,7 @@ namespace TappService
 
         public Collection<T> Filter(string filters_commands, Collection<T> all_items)
         {
-            if(filters_commands.Length == 0) { return all_items; }
+            if(filters_commands == null || filters_commands.Length == 0) { return all_items; }
 
             Collection<IFilter> filters = new Collection<IFilter>();
 

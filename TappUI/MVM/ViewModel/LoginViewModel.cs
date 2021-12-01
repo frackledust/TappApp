@@ -13,11 +13,14 @@ namespace TappUI.MVM.ViewModel
 
         public void Login()
         {
-            RequesterWindow r = new RequesterWindow()
+            if (Username != null && Username.Length > 0)
             {
-                DataContext = new RequesterViewModel(Username),
-            };
-            r.Show();
+                RequesterWindow r = new RequesterWindow()
+                {
+                    DataContext = new RequesterViewModel(Username),
+                };
+                r.Show();
+            }
         }
     }
 }

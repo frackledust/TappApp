@@ -15,7 +15,19 @@ namespace TappConsole
         public Project SelectedProject { get; set; }
 
         public Collection<Project> User_projects;
-        public Collection<Project> Shown_projects;
+
+        private Collection<Project> shown_projects;
+        public Collection<Project> Shown_projects
+        {
+            get
+            {
+                return shown_projects;
+            }
+            set
+            {
+                shown_projects = value;
+            }
+        }
 
         public void ShowProjects()
         {

@@ -21,6 +21,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
+        <!-- Up menu -->
         <Border Grid.ColumnSpan="2"
                 Background="MediumAquamarine"
                 MouseDown="Border_MouseDown">
@@ -66,6 +67,7 @@
 
         </Border>
 
+        <!-- Side menu -->
         <Grid Background="#2F3136" Grid.Row="1">
 
             <Grid.RowDefinitions>
@@ -81,11 +83,13 @@
                    Foreground="Gray"
                    Margin="8,0,0,0"/>
 
-            <ListView ItemsSource="{Binding ShownProjects}"
+            <ListView x:Name="ListProjects"
+                      ItemsSource="{Binding ShownProjects}"
                       SelectedItem="{Binding SelectedProject}"
                       Background="Transparent"
                       BorderThickness="0"
                       Grid.Row="1"
+                      IsSynchronizedWithCurrentItem="True"
                       ItemContainerStyle="{StaticResource ProjectsCard}"/>
 
             <StackPanel Grid.Row="2"
@@ -106,22 +110,35 @@
                            FontSize="10"
                            Margin="0,-8,0,-5"
                            />
-
-
                 </StackPanel>
 
+
             </StackPanel>
+
         </Grid>
+
+        <!-- Right panel -->
         <Grid Grid.Column="1" Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="3*"/>
-                <RowDefinition Height="38*"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition/>
+                <RowDefinition/>
+
             </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
             <Border BorderThickness="20"
                     BorderBrush="#2F3136"
                     Height="200"
-                    Width="250" Margin="10,0,0,370"
-                    HorizontalAlignment="Left" Grid.Row="1">
+                    Width="250"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1">
                 <TextBlock Text="{Binding SelectedProject.Original_text}"
                        Background="#2F3136"
                        Foreground="Gray">
@@ -131,13 +148,47 @@
             <Border BorderThickness="20"
                     BorderBrush="#2F3136"
                     Height="200"
-                    Width="250" Margin="290,0,0,370"
-                    HorizontalAlignment="Left" Grid.Row="1">
+                    Width="250" Margin="0,0,0,0"
+                    HorizontalAlignment="Center"
+                    Grid.Row="1" Grid.Column="1">
                 <TextBlock Text="{Binding SelectedProject.Translated_text}"
                        Background="#2F3136"
                        Foreground="Gray">
                 </TextBlock>
             </Border>
+
+            <TextBox x:Name="UserNameBox"
+                         Height ="30"
+                         Grid.Row="2"
+                         Foreground="DimGray"
+                         HorizontalAlignment="Center"
+                         Width="252"
+                         Margin="0,10,0,150"
+                         Text="{Binding TextCommand}"/>
+
+
+            <Button Height="20" Width="50"
+                        Content="Filter"
+                        x:Name="Filter"
+                        Command="{Binding FilterCommand}"
+                        FontSize="10"
+                        Margin="0,53,15,117"
+                        Grid.Row="2"
+                    
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ResourceKey=MyButtonStyle}"
+                        />
+
+            <Button Height="20" Width="50"
+                        Content="Stats"
+                        Command="{Binding StatsCommand}"
+                        FontSize="10"
+                        Margin="12,53,0,117"
+                        Grid.Row="2"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource ResourceKey=MyButtonStyle}"
+                        />
+
         </Grid>
     </Grid>
 </Window>

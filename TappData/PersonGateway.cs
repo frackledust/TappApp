@@ -10,6 +10,8 @@ namespace TappData
 
         public static int Read(string username)
         {
+            if(username == null || username.Length == 0) return 0;
+
             int person_id = 0;
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
