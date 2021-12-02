@@ -35,7 +35,7 @@ namespace TappData
                         string original_language = (string)reader["original_language"];
                         string translate_language = (string)reader["translate_language"];
                         string original_text = (string)reader["original_file"];
-                        string translated_text = (string)reader["translate_file"];
+                        string translated_text = reader["translate_file"] as string;
 
                         Project p = new Project
                         {

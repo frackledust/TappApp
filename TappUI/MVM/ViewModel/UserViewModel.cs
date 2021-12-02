@@ -1,14 +1,19 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using Microsoft.Win32;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Input;
 using TappModels;
 using TappService;
 
 namespace TappUI.MVM.ViewModel
 {
-    class RequesterViewModel
+    class UserViewModel
     {
+        #region Fields
         //Properties
+        public string Username { get; set; }
+
         public ObservableCollection<Project> ShownProjects { get; set; }
 
         public Collection<Project> LoadedProjects { get; set; }
@@ -17,14 +22,24 @@ namespace TappUI.MVM.ViewModel
 
         public string TextCommand { get; set; } // INotifyPropertyChanged
 
-        public RequesterViewModel(string username)
+        public bool IsNotRequester { get;}
+
+        #endregion
+
+        #region Constructor
+        public UserViewModel(string username, string role)
         {
-            LoadedProjects = UserService.LoadProjects(username, "requester");
+            Username = username;
+
+            IsNotRequester = (role != "requester");
+
+            LoadedProjects = LoginService.LoadProjects(username, role);
+
             ShownProjects = new ObservableCollection<Project>(LoadedProjects);
         }
+        #endregion
 
-        //Comands
-
+        #region Commands
         private ICommand _filterCommand;
         public ICommand FilterCommand
         {
@@ -37,12 +52,18 @@ namespace TappUI.MVM.ViewModel
             get { return _statsCommand ?? (_statsCommand = new RelayCommand(() => Stats(), true)); }
         }
 
-        //Methods
+        private ICommand _createProjectCommand;
+        public ICommand CreateProjectCommand
+        {
+            get { return _createProjectCommand ?? (_createProjectCommand = new RelayCommand(() => CreateProject(), true)); }
+        }
 
+        #endregion
+
+        #region Methods
         public void Filter()
         {
-            FilterService<Project> filterService = new FilterService<Project>();
-            var projects = filterService.Filter(TextCommand, LoadedProjects);
+            var projects = FilterService<Project>.Filter(TextCommand, LoadedProjects);
             ShownProjects.Clear();
 
             foreach (var project in projects)
@@ -55,5 +76,16 @@ namespace TappUI.MVM.ViewModel
         {
             string file_path = StatsService.GenerateStatsToCSV(ShownProjects);
         }
+
+        public void CreateProject()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+            {
+                //ShownProjects[1].Original_text = File.ReadAllText(openFileDialog.FileName);
+                // >> CreateProject(string file_name);
+            }
+        }
+        #endregion
     }
 }

@@ -17,4 +17,11 @@
     <ProjectReference Include="..\TappService\TappService.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Page Update="Themes\RequesterButton.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>

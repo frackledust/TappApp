@@ -85,8 +85,14 @@
                         Height="35"
                         Content="Requester"
                         Margin="10"
-                        Click="ButtonRequester_Click"
-                        Style="{StaticResource MyButtonStyle}"/>
+                        Command="{Binding RequesterLoginCommand}"
+                        Style="{StaticResource TappButton}"/>
+                
+                <Button Width="100"
+                    Height="35"
+                    Content="Translator"
+                    Command="{Binding TranslatorLoginCommand}"
+                    Style="{StaticResource TappButton}"/>
             </StackPanel>
         </Grid>
     </Grid>

@@ -11,9 +11,10 @@ namespace TappUI.MVM.View
     {
         public RequesterWindow()
         {
+            Application.Current.MainWindow.Close();
+            Application.Current.MainWindow = this;
             InitializeComponent();
         }
-
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -41,11 +42,6 @@ namespace TappUI.MVM.View
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void ButtonFilter_Click(object sender, RoutedEventArgs e)
-        {
-            //ListProjects.Items.Refresh();
         }
     }
 }

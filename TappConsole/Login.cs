@@ -90,6 +90,7 @@ namespace TappConsole
                 else if (key.KeyChar == 'q')
                 {
                     Console.WriteLine("Thank you for using our app");
+                    Console.WriteLine();
                     return;
                 }
             }
@@ -121,7 +122,8 @@ namespace TappConsole
                 Username = Console.ReadLine();
             }
 
-            User_projects = UserService.LoadProjects(Username, User_role);
+            Console.Clear();
+            User_projects = LoginService.LoadProjects(Username, User_role);
             Shown_projects = User_projects;
 
             return true;

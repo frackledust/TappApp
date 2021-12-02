@@ -7,7 +7,7 @@ using TappData;
 
 namespace TappService
 {
-    public static class UserService
+    public static class LoginService
     {
         public static Collection<Project> LoadProjects(string username, string user_role)
         {

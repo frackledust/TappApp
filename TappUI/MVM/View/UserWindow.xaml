@@ -2,18 +2,18 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:viewmodel="clr-namespace:TappUI.MVM.ViewModel"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewmodel="clr-namespace:TappUI.MVM.ViewModel"
         mc:Ignorable="d"
-        Height="650" Width="750"
+        Height="640" Width="730"
         Background="#36393F"
         WindowStyle="None"
-        AllowsTransparency="True"
-        ResizeMode="CanResizeWithGrip">
+        AllowsTransparency="True">
 
-    <Grid>
+    <Grid Margin="0,0,0,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition/>
+            <RowDefinition Height="394*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -27,7 +27,7 @@
                 MouseDown="Border_MouseDown">
 
             <Grid HorizontalAlignment="Stretch">
-                <Label Content="Username"
+                <Label Content="{Binding Username}"
                        Foreground="Black"
                        FontWeight="Light"
                        FontSize="20" Margin="10,0,0,0"
@@ -68,7 +68,7 @@
         </Border>
 
         <!-- Side menu -->
-        <Grid Background="#2F3136" Grid.Row="1">
+        <Grid Background="#2F3136" Grid.Row="1" Grid.RowSpan="2" Margin="0,0,0,-9">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -112,13 +112,22 @@
                            />
                 </StackPanel>
 
-
             </StackPanel>
+
+            <Button     Grid.Row="2"
+                        Height="30" Width="84"
+                        Content="Create project"
+                        Command="{Binding CreateProjectCommand}"
+                        FontSize="10"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ResourceKey=RequesterButton}"
+                        Margin="0,0,15,0"
+                        />
 
         </Grid>
 
         <!-- Right panel -->
-        <Grid Grid.Column="1" Grid.Row="1">
+        <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="200"/>
@@ -141,7 +150,8 @@
                     Grid.Row="1">
                 <TextBlock Text="{Binding SelectedProject.Original_text}"
                        Background="#2F3136"
-                       Foreground="Gray">
+                       Foreground="Gray"
+                       TextWrapping="Wrap">
                 </TextBlock>
             </Border>
 
@@ -152,8 +162,9 @@
                     HorizontalAlignment="Center"
                     Grid.Row="1" Grid.Column="1">
                 <TextBlock Text="{Binding SelectedProject.Translated_text}"
-                       Background="#2F3136"
-                       Foreground="Gray">
+                           Background="#2F3136"
+                           Foreground="Gray"
+                           TextWrapping="Wrap">
                 </TextBlock>
             </Border>
 
@@ -161,34 +172,33 @@
                          Height ="30"
                          Grid.Row="2"
                          Foreground="DimGray"
+                         VerticalAlignment="Top"
                          HorizontalAlignment="Center"
                          Width="252"
-                         Margin="0,10,0,150"
+                         Margin="0,10,0,0"
                          Text="{Binding TextCommand}"/>
-
 
             <Button Height="20" Width="50"
                         Content="Filter"
-                        x:Name="Filter"
                         Command="{Binding FilterCommand}"
                         FontSize="10"
-                        Margin="0,53,15,117"
+                        Margin="0,50,15,0"
                         Grid.Row="2"
-                    
+                        VerticalAlignment="Top"
                         HorizontalAlignment="Right"
-                        Style="{StaticResource ResourceKey=MyButtonStyle}"
+                        Style="{StaticResource ResourceKey=TappButton}"
                         />
 
             <Button Height="20" Width="50"
                         Content="Stats"
                         Command="{Binding StatsCommand}"
                         FontSize="10"
-                        Margin="12,53,0,117"
+                        Margin="0,50,75,0"
                         Grid.Row="2"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource ResourceKey=MyButtonStyle}"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Right"
+                        Style="{StaticResource ResourceKey=TappButton}"
                         />
-
         </Grid>
     </Grid>
 </Window>

@@ -4,10 +4,10 @@ using TappService.Filters;
 
 namespace TappService
 {
-    public class FilterService<T> where T : IItem
+    public static class FilterService<T> where T : IItem
     {
 
-        private bool FitsFilters(Collection<IFilter> filters, T item)
+        private static bool FitsFilters(Collection<IFilter> filters, T item)
         {
             for (int i = 0; i < filters.Count; i++)
             {
@@ -19,7 +19,7 @@ namespace TappService
             return true;
         }
 
-        private Collection<T> Filter(Collection<IFilter> filters, Collection<T> all_items)
+        private static Collection<T> Filter(Collection<IFilter> filters, Collection<T> all_items)
         {
             if (filters.Count == 0)
             {
@@ -39,7 +39,7 @@ namespace TappService
             return result;
         }
 
-        public Collection<T> Filter(string filters_commands, Collection<T> all_items)
+        public static Collection<T> Filter(string filters_commands, Collection<T> all_items)
         {
             if(filters_commands == null || filters_commands.Length == 0) { return all_items; }
 

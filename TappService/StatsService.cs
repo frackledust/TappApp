@@ -16,12 +16,16 @@ namespace TappService
 
         public static int SentenceCount(string text)
         {
+            if (text == null || text.Length == 0) return 0;
+
             char[] split_chars = new char[] { '.', '?', '!' };
             return text.Split(split_chars, StringSplitOptions.RemoveEmptyEntries).Length;
         }
 
         public static int WordCount(string text)
         {
+            if (text == null || text.Length == 0) return 0;
+
             char [] split_chars = new char[] { ' ', '\r', '\n' };
             return text.Split(split_chars, StringSplitOptions.RemoveEmptyEntries).Length;
         }

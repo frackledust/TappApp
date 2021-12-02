@@ -24,17 +24,5 @@ namespace TappUI.MVM.View
         {
             Application.Current.Shutdown();
         }
-
-        private void ButtonRequester_Click(object sender, RoutedEventArgs e)
-        {
-            LoginViewModel? vm = this.DataContext as LoginViewModel;
-
-            if(vm != null)
-            {
-                vm.Login();
-            }
-
-            this.Close();
-        }
     }
 }

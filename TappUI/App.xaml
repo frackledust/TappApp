@@ -8,6 +8,7 @@
         <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="./Themes/ProjectCard.xaml"/>
                 <ResourceDictionary Source="./Themes/TappButton.xaml"/>
+                <ResourceDictionary Source="./Themes/RequesterButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
     </Application.Resources>
