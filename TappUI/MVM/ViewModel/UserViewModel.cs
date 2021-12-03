@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 using TappModels;
 using TappService;
@@ -12,6 +13,8 @@ namespace TappUI.MVM.ViewModel
     {
         #region Fields
         //Properties
+        public int Id { get; set; }
+        
         public string Username { get; set; }
 
         public ObservableCollection<Project> ShownProjects { get; set; }
@@ -33,7 +36,9 @@ namespace TappUI.MVM.ViewModel
 
             IsNotRequester = (role != "requester");
 
-            LoadedProjects = LoginService.LoadProjects(username, role);
+            Id = LoginService.GetId(username);
+
+            LoadedProjects = LoginService.LoadProjects(Id, role);
 
             ShownProjects = new ObservableCollection<Project>(LoadedProjects);
         }
@@ -82,8 +87,18 @@ namespace TappUI.MVM.ViewModel
             OpenFileDialog openFileDialog = new OpenFileDialog();
             if (openFileDialog.ShowDialog() == true)
             {
-                //ShownProjects[1].Original_text = File.ReadAllText(openFileDialog.FileName);
-                // >> CreateProject(string file_name);
+                MessageBox.Show(openFileDialog.FileName);
+                Project? added_project = ProjectService.CreateProject(openFileDialog.FileName, Id, false);
+
+                if(added_project != null)
+                {
+                    ShownProjects.Add(added_project);
+                    LoadedProjects.Add(added_project);
+                }
+                else
+                {
+                    MessageBox.Show("Project could not be created.\n Check if your file name is 'NAME_LANGUAGE_LANGUAGE.txt'");
+                }
             }
         }
         #endregion

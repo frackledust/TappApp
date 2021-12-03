@@ -1,9 +1,8 @@
-﻿-- Table Person
-
-CREATE TABLE [Person] (
-  [person_id] int NOT NULL IDENTITY(1,1),
-  [username] varchar(20) NOT NULL,
-  [email] varchar(20) NOT NULL,
-
-  CONSTRAINT [PK_person] PRIMARY KEY ([person_id])
+﻿CREATE TABLE [dbo].[Person] (
+    [person_id] INT           IDENTITY (1, 1) NOT NULL,
+    [username]  VARCHAR (20)  NOT NULL,
+    [email]     VARCHAR (20)  NOT NULL,
+    [languages] VARCHAR (100) NULL,
+    CONSTRAINT [PK_person] PRIMARY KEY CLUSTERED ([person_id] ASC)
 );
+

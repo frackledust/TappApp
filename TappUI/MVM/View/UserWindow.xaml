@@ -144,28 +144,33 @@
 
             <Border BorderThickness="20"
                     BorderBrush="#2F3136"
-                    Height="200"
-                    Width="250"
+                    MinHeight="200"
+                    MinWidth="250"
                     HorizontalAlignment="Center"
+                    Margin="5,0,5,0"
                     Grid.Row="1">
-                <TextBlock Text="{Binding SelectedProject.Original_text}"
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <TextBlock Text="{Binding SelectedProject.Original_text}"
                        Background="#2F3136"
                        Foreground="Gray"
                        TextWrapping="Wrap">
-                </TextBlock>
+                    </TextBlock>
+                </ScrollViewer>
             </Border>
 
             <Border BorderThickness="20"
                     BorderBrush="#2F3136"
-                    Height="200"
-                    Width="250" Margin="0,0,0,0"
+                    MinHeight="200"
+                    MinWidth="250"
+                    Margin="5,0,5,0"
                     HorizontalAlignment="Center"
                     Grid.Row="1" Grid.Column="1">
-                <TextBlock Text="{Binding SelectedProject.Translated_text}"
+                <TextBox Text="{Binding SelectedProject.Translated_text}"
                            Background="#2F3136"
                            Foreground="Gray"
-                           TextWrapping="Wrap">
-                </TextBlock>
+                           TextWrapping="Wrap"
+                           BorderBrush="#2F3136">
+                </TextBox>
             </Border>
 
             <TextBox x:Name="UserNameBox"
