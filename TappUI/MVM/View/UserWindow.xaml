@@ -173,37 +173,66 @@
                 </TextBox>
             </Border>
 
-            <TextBox x:Name="UserNameBox"
-                         Height ="30"
-                         Grid.Row="2"
+            <!-- Middle panel -->
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100*"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="66*"/>
+                    <ColumnDefinition Width="66*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="TextCommandBox"
+                         Grid.ColumnSpan="4"
                          Foreground="DimGray"
-                         VerticalAlignment="Top"
-                         HorizontalAlignment="Center"
-                         Width="252"
-                         Margin="0,10,0,0"
+                         Margin="8,8,8,8"
                          Text="{Binding TextCommand}"/>
 
-            <Button Height="20" Width="50"
-                        Content="Filter"
-                        Command="{Binding FilterCommand}"
+                <Button Height="20"
+                        Margin="8,0,8,0"
+                        Content="Reach Translators"
                         FontSize="10"
-                        Margin="0,50,15,0"
-                        Grid.Row="2"
                         VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource ResourceKey=TappButton}"
+                        Grid.Row="1" Grid.Column="0"
+                        Command="{Binding ReachTranslatorsCommand}"
+                        Style="{StaticResource ResourceKey=RequesterButton}"
                         />
 
-            <Button Height="20" Width="50"
+                <Button Height="20"
                         Content="Stats"
-                        Command="{Binding StatsCommand}"
                         FontSize="10"
-                        Margin="0,50,75,0"
-                        Grid.Row="2"
                         VerticalAlignment="Top"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource ResourceKey=TappButton}"
+                        Grid.Row="1" Grid.Column="2"
+                        Command="{Binding StatsCommand}"
+                        Style="{StaticResource ResourceKey=TappButton}" Margin="8,0,8,0"
                         />
+
+                <Button Height="20"
+                        Content="Filter"
+                        FontSize="10"
+                        VerticalAlignment="Top"
+                        Grid.Row="1" Grid.Column="3"
+                        Command="{Binding FilterCommand}"
+                        Style="{StaticResource ResourceKey=TappButton}" Margin="8,0,8,0"
+                        />
+            </Grid>
+
+            <Border Grid.Row="2"
+                    Grid.Column="3"
+                    Margin="8"
+                    BorderThickness="10"
+                    BorderBrush="#2F3136"
+                    Background="#2F3136">
+                <TextBlock Text="{Binding HelpText}"
+                           TextWrapping="Wrap"
+                           Foreground="Gray"/>
+            </Border>
         </Grid>
     </Grid>
 </Window>

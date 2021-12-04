@@ -22,13 +22,13 @@ namespace TappUI.MVM.ViewModel
         private ICommand _requesterLoginCommand;
         public ICommand RequesterLoginCommand
         {
-            get { return _requesterLoginCommand ?? (_requesterLoginCommand = new RelayCommand(() => RequesterLogin(), true)); }
+            get { return _requesterLoginCommand ??= new RelayCommand(() => RequesterLogin(), true); }
         }
 
         private ICommand _translatorLoginCommand;
         public ICommand TranslatorLoginCommand
         {
-            get { return _translatorLoginCommand ?? (_translatorLoginCommand = new RelayCommand(() => TranslatorLogin(), true)); }
+            get { return _translatorLoginCommand ??= new RelayCommand(() => TranslatorLogin(), true); }
         }
 
         #endregion
