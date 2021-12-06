@@ -2,14 +2,14 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Style BasedOn = "{StaticResource TappButton}"
            TargetType="{x:Type Button}"
-           x:Key="RequesterButton">
+           x:Key="TranslatorButton">
 
         <Style.Triggers>
-
-            <DataTrigger Binding="{Binding IsNotRequester}" Value="True">
+            
+            <DataTrigger Binding="{Binding IsNotRequester}" Value="False">
                 <Setter Property="Visibility" Value="Hidden"/>
             </DataTrigger>
-            
+
         </Style.Triggers>
     </Style>
 </ResourceDictionary>

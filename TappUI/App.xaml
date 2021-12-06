@@ -6,9 +6,11 @@
     <Application.Resources>
     <ResourceDictionary>
         <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="./Themes/Colors.xaml"/>
                 <ResourceDictionary Source="./Themes/ProjectCard.xaml"/>
                 <ResourceDictionary Source="./Themes/TappButton.xaml"/>
                 <ResourceDictionary Source="./Themes/RequesterButton.xaml"/>
+                <ResourceDictionary Source="./Themes/TranslatorButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
     </Application.Resources>

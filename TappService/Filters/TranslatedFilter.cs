@@ -13,7 +13,7 @@ namespace TappService.Filters
         {
             if(item is Project p)
             {
-                if(p.IsTranslated)
+                if(p.HasTranslation)
                 {
                     return true;
                 }

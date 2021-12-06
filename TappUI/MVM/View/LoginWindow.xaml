@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:TappUI" xmlns:viewmodel="clr-namespace:TappUI.MVM.ViewModel"
         mc:Ignorable="d"
         Height="600" Width="400"
-        Background="#36393F"
+        Background="{StaticResource LightBGColorBrush}"
         WindowStyle="None"
         AllowsTransparency="True"
         ShowInTaskbar="False"
@@ -16,7 +16,7 @@
         <viewmodel:LoginViewModel/>
     </Window.DataContext>
 
-    <Grid Background="#292b2F" >
+    <Grid Background="{StaticResource DarkBGColorBrush}" >
         <!-- Rows -->
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -33,7 +33,7 @@
 
         <!-- Green horizontal panel -->
         <Border Grid.ColumnSpan="4"
-                Background="MediumAquamarine"
+                Background="{StaticResource MainBrightColorBrush}"
                 MouseDown="Border_MouseDown">
 
             <Grid HorizontalAlignment="Stretch">
@@ -56,7 +56,7 @@
         </Border>
 
         <!-- Light gray panel -->
-        <Grid Background="#36393F" Grid.Row ="1" Grid.Column="1">
+        <Grid Background="{StaticResource LightBGColorBrush}" Grid.Row ="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -69,7 +69,7 @@
                    FontFamily="Microsoft YaHei UI Light"
                    Content="=下 app =" FontSize="36"
                    BorderBrush="Black"
-                   Foreground="MediumAquamarine"
+                   Foreground="{StaticResource MainBrightColorBrush}"
                    />
 
             <!-- Login panel -->

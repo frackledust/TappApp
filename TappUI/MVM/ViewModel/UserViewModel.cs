@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using Microsoft.Win32;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -11,31 +12,26 @@ namespace TappUI.MVM.ViewModel
     class UserViewModel
     {
         #region Fields
-        //Properties
-        public int Id { get; set; }
-        
-        public string Username { get; set; }
+        public int Id { get; }
 
-        public ObservableCollection<Project> ShownProjects { get; set; }
+        public string Username { get; }
 
-        public Collection<Project> LoadedProjects { get; set; }
+        public ObservableCollection<Project> ShownProjects { get; }
+
+        public Collection<Project> LoadedProjects { get; }
 
         public Project SelectedProject { get; set; }
 
         public string TextCommand { get; set; } // INotifyPropertyChanged
 
-        public string HelpText
+        public static string HelpText
         {
-            get
-            {
-                return @">> Create
-                         >> Filter
-                         >> Stats
-                        ";
-            }
+            get => @"Some text for now";
         }
 
-        public bool IsNotRequester { get;}
+        public bool IsNotRequester { get; }
+
+        public bool IsTemporary { get; } = false;
 
         #endregion
 
@@ -48,13 +44,27 @@ namespace TappUI.MVM.ViewModel
 
             Id = LoginService.GetId(username);
 
-            LoadedProjects = LoginService.LoadProjects(Id, role);
-
-            ShownProjects = new ObservableCollection<Project>(LoadedProjects);
+            if (Id > 0)
+            {
+                LoadedProjects = LoginService.LoadProjects(Id, role, true);
+                ShownProjects = new ObservableCollection<Project>(LoadedProjects);
+            }
+            else
+            {
+                IsTemporary = true;
+                LoadedProjects = new Collection<Project>();
+                ShownProjects = new ObservableCollection<Project>();
+            }
         }
         #endregion
 
         #region Commands
+        private ICommand _createProjectCommand;
+        public ICommand CreateProjectCommand
+        {
+            get { return _createProjectCommand ??= new RelayCommand(() => CreateProject(), true); }
+        }
+
         private ICommand _filterCommand;
         public ICommand FilterCommand
         {
@@ -73,66 +83,92 @@ namespace TappUI.MVM.ViewModel
             get { return _reachTranslatorsCommand ??= new RelayCommand(() => ReachTranslators(), true); }
         }
 
-        private ICommand _createProjectCommand;
-        public ICommand CreateProjectCommand
+        private ICommand _deactiveTranslatorCommand;
+        public ICommand DeactiveTranslatorCommand
         {
-            get { return _createProjectCommand ??= new RelayCommand(() => CreateProject(), true); }
+            get { return _deactiveTranslatorCommand ??= new RelayCommand(() => DeactivateTranslator(), true); }
         }
 
         #endregion
 
         #region Methods
-        public void Filter()
-        {
-            var projects = FilterService<Project>.Filter(TextCommand, LoadedProjects);
-            ShownProjects.Clear();
-
-            foreach (var project in projects)
-            {
-                ShownProjects.Add(project);
-            }
-        }
-
-        public void Stats()
-        {
-            string file_path = StatsService.GenerateStatsToCSV(ShownProjects);
-        }
-
-        public void ReachTranslators()
-        {
-            if(SelectedProject == null)
-            {
-                MessageBox.Show("Please select project first.");
-                return;
-            }
-
-            if(SelectedProject.IsTranslated)
-            {
-                MessageBox.Show("Select project without translation.");
-                return;
-            }
-
-            int translators_count = TranslatorService.ReachTranslators(Username, SelectedProject);
-            MessageBox.Show($"Request sent to {translators_count} translators!");
-        }
-
         public void CreateProject()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new();
+
             if (openFileDialog.ShowDialog() == true)
             {
-                Project? added_project = ProjectService.CreateProject(openFileDialog.FileName, Id, false);
+                Project added_project = ProjectService.CreateProject(openFileDialog.FileName, Id, IsTemporary);
 
-                if(added_project != null)
+                if (added_project != null)
                 {
                     ShownProjects.Add(added_project);
                     LoadedProjects.Add(added_project);
+
+                    if (IsTemporary)
+                    {
+                        MessageBox.Show($"Project added to temporary project list.");
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Project added to the database with id {added_project.Id}'");
+                    }
                 }
                 else
                 {
                     MessageBox.Show("Project could not be created.\n Check if your file name is 'NAME_LANGUAGE_LANGUAGE.txt'");
                 }
             }
+        }
+
+        public void Filter()
+        {
+            try
+            {
+                var projects = FilterService<Project>.Filter(TextCommand, LoadedProjects);
+                ShownProjects.Clear();
+
+                foreach (var project in projects)
+                {
+                    ShownProjects.Add(project);
+                }
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); return; }
+        }
+
+        public void Stats()
+        {
+            try
+            {
+                string file_path = StatsService.GenerateStatsToCSV(ShownProjects);
+                MessageBox.Show($"Stats saved at {file_path}");
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); return; }
+        }
+
+        public void ReachTranslators()
+        {
+            if (SelectedProject == null)
+            {
+                MessageBox.Show("Please select project first.");
+                return;
+            }
+
+            if (SelectedProject.HasTranslation)
+            {
+                MessageBox.Show("Select project without translation.");
+                return;
+            }
+
+            int translators_count = ContactService.ReachTranslators(Username, SelectedProject);
+            MessageBox.Show($"Request sent to {translators_count} translators!");
+        }
+
+        public void DeactivateTranslator()
+        {
+            MessageBox.Show("Deactivation sucessful.");
+            UserService.DeactiveTranslator(Id);
+            Application.Current.Shutdown();
         }
         #endregion
     }

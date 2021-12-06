@@ -8,7 +8,7 @@ using TappModels;
 
 namespace TappService
 {
-    public static class TranslatorService
+    public static class ContactService
     {
         private static string GetEmailText(string requester_username, Project project)
         {

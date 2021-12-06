@@ -3,11 +3,11 @@
     <Style TargetType="ListViewItem" x:Key="ProjectsCard">
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="#292b2F"/>
+                <Setter Property="Background" Value="{StaticResource DarkBGColorBrush}"/>
             </Trigger>
         </Style.Triggers>
 
-        <Setter Property="Background" Value="#393b40"/>
+        <Setter Property="Background" Value="{StaticResource LightBGColorBrush}"/>
 
         <Setter Property="Template">
             <Setter.Value>

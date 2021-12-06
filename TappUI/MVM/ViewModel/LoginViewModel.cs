@@ -38,7 +38,7 @@ namespace TappUI.MVM.ViewModel
         {
             if (Username != null && Username.Length > 0)
             {
-                RequesterWindow r = new RequesterWindow()
+                RequesterWindow r = new()
                 {
                     DataContext = new UserViewModel(Username, Role),
                 };

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using TappData;
 using TappModels;
 
@@ -6,17 +7,14 @@ namespace TappService
 {
     public static class ProjectService
     {
-        private static bool IsTxtFile(string file_path)
-        {
-            return (file_path != null && file_path.EndsWith("txt"));
-        }
+        private static bool IsTxtFile(string file_path) => (file_path != null && file_path.EndsWith("txt"));
 
-        private static bool GetParameters(string file_path, out string [] parameters)
+        private static bool GetParameters(string file_path, out string[] parameters)
         {
             string temp = Path.GetFileName(file_path);
             parameters = temp.Split('_');
 
-            if(parameters.Length >= 3)
+            if (parameters.Length >= 3)
             {
                 parameters[2] = parameters[2].Remove(parameters[2].Length - 4); //Deletes .txt
                 return true;
@@ -24,17 +22,19 @@ namespace TappService
             return false;
         }
 
-        public static Project? CreateProject(string file_path, int requester_id, bool temporary)
+        public static Project CreateProject(string file_path, int requester_id, bool temporary)
         {
+            //Check path
             if (IsTxtFile(file_path) == false) { return null; }
 
+            //Create project
             string original_text = File.ReadAllText(file_path);
 
-            if (GetParameters(file_path, out string [] parameters))
+            if (GetParameters(file_path, out string[] parameters))
             {
                 Project project = new Project()
                 {
-                    Id = -1,
+                    Id = default,
                     Name = parameters[0],
                     Original_language = parameters[1],
                     Translate_language = parameters[2],
@@ -42,10 +42,7 @@ namespace TappService
                 };
 
                 //Upload to database
-                if(temporary == false )
-                {
-                    ProjectMapper.Create(project, requester_id);
-                }
+                if (temporary == false) { ProjectMapper.Create(project, requester_id); }
 
                 return project;
             }

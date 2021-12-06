@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 
@@ -27,7 +28,6 @@ namespace TappData
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-
                 connection.Open();
 
                 using (SqlCommand command = connection.CreateCommand())
@@ -37,7 +37,6 @@ namespace TappData
 
                     SqlDataReader reader = command.ExecuteReader();
 
-
                     dt.Load(reader);
 
                     return dt;
@@ -45,35 +44,49 @@ namespace TappData
             }
         }
 
-        public static int Read(string username)
+        public static int GetId(string username)
         {
-            if (username == null || username.Length == 0) return 0;
-
-            int person_id = 0;
+            int person_id = default;
+            if (username == null || username.Length == 0) return person_id;
 
             using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
             {
-
                 connection.Open();
 
                 using (SqlCommand command = connection.CreateCommand())
                 {
-
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = $"SELECT * FROM [Person] WHERE [username] = @username";
-                    command.Parameters.AddWithValue("@username", username);
-
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.Read())
+                    try
                     {
-                        person_id = (int)reader["person_id"];
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = @"SELECT * FROM [Person] WHERE [username] = @username";
+                        command.Parameters.AddWithValue("@username", username);
+
+                        person_id = (int) (command.ExecuteScalar() ?? -1);
+                        return person_id;
+                    }
+                    catch (Exception ex)
+                    {
+                        return -1;
                     }
                 }
-
             }
+        }
 
-            return person_id;
+        public static int Deactive(int id)
+        {
+            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            {
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = @"UPDATE [Person] SET [is_active] = 0 WHERE person_id = @id";
+                    command.Parameters.AddWithValue("@id", id);
+                    connection.Open();
+
+                    int rows_affected = command.ExecuteNonQuery();
+                    return rows_affected;
+                }
+            }
         }
     }
 }

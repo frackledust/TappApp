@@ -9,10 +9,7 @@ namespace TappService
     public static class StatsService
     {
         public static string TimeStamp { get => DateTime.Now.ToString("dd'_'MM'_'HH'_'mm"); }
-        private static string CsvPath
-        {
-            get { return $@"../stats_{TimeStamp}_version.csv"; }
-        }
+        private static string CsvPath { get => $@"../stats_{TimeStamp}_version.csv"; }
 
         public static int SentenceCount(string text)
         {
@@ -26,13 +23,13 @@ namespace TappService
         {
             if (text == null || text.Length == 0) return 0;
 
-            char [] split_chars = new char[] { ' ', '\r', '\n' };
+            char[] split_chars = new char[] { ' ', '\r', '\n' };
             return text.Split(split_chars, StringSplitOptions.RemoveEmptyEntries).Length;
         }
 
         public static string GenerateStats(Collection<Project> projects, string col_separator, string row_separator)
         {
-            if(ReferenceEquals(projects, null)) { throw new ArgumentNullException(nameof(projects)); }
+            if (projects is null) { throw new ArgumentNullException(nameof(projects)); }
 
             StringBuilder stats = new StringBuilder();
 
@@ -84,15 +81,14 @@ namespace TappService
 
                 stats.Append(row_separator);
             }
-            
+
             return stats.ToString();
         }
 
         public static string GenerateStatsToCSV(Collection<Project> projects)
         {
-
             string stats = GenerateStats(projects, ";", "\n");
-            if(string.IsNullOrEmpty(stats)) { return default(string); }
+            if (string.IsNullOrEmpty(stats)) { return default; }
 
             string current_path = CsvPath;
             using (FileStream fs = new FileStream(current_path, FileMode.OpenOrCreate))

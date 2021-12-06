@@ -13,7 +13,7 @@ namespace TappUI
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow();
+            LoginWindow loginWindow = new();
             loginWindow.Show();
         }
     }

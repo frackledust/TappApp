@@ -6,24 +6,25 @@
         xmlns:viewmodel="clr-namespace:TappUI.MVM.ViewModel"
         mc:Ignorable="d"
         Height="640" Width="730"
-        Background="#36393F"
+        Background="{StaticResource LightBGColorBrush}"
         WindowStyle="None"
         AllowsTransparency="True">
 
-    <Grid Margin="0,0,0,10">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
-            <RowDefinition Height="394*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
         <!-- Up menu -->
-        <Border Grid.ColumnSpan="2"
-                Background="MediumAquamarine"
+        <Border Grid.ColumnSpan="3"
+                Style="{StaticResource ColorfulBorder}"
                 MouseDown="Border_MouseDown">
 
             <Grid HorizontalAlignment="Stretch">
@@ -68,7 +69,7 @@
         </Border>
 
         <!-- Side menu -->
-        <Grid Background="#2F3136" Grid.Row="1" Grid.RowSpan="2" Margin="0,0,0,-9">
+        <Grid Background="{StaticResource DarkBGColorBrush}" Grid.Row="1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -127,7 +128,7 @@
         </Grid>
 
         <!-- Right panel -->
-        <Grid Grid.Column="1" Grid.Row="1" Margin="0,0,0,10" Grid.RowSpan="2">
+        <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="200"/>
@@ -233,6 +234,18 @@
                            TextWrapping="Wrap"
                            Foreground="Gray"/>
             </Border>
+
+
+            <Button Grid.Row="3" Grid.Column="1"
+                    Height="30" Width="84"
+                    Content="Give up"
+                    Command="{Binding DeactiveTranslatorCommand}"
+                    FontSize="10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource ResourceKey=TranslatorButton}"
+                    Margin="10"
+                        />
         </Grid>
     </Grid>
 </Window>
