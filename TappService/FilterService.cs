@@ -57,9 +57,9 @@ namespace TappService
             if (filters_commands.Contains(LanguageFilter.Command))
             {
                 string command = filters_commands[filters_commands.IndexOf(LanguageFilter.Command)..];
-                var parameters = command.Split(new char []{'-','_'});
+                var parameters = command.Split(new char[] { '-', '_' });
 
-                if(parameters.Length >= 2)
+                if (parameters.Length >= 2)
                 {
                     bool of_translated = parameters.Length == 3 && parameters[2] == "T";
 

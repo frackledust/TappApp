@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using TappModels;
 using TappData;
-using System;
+using TappModels;
 
 namespace TappService
 {

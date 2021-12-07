@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using TappUI.MVM.ViewModel;
 
 namespace TappUI.MVM.View
 {

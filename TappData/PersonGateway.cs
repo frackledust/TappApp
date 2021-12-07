@@ -7,8 +7,6 @@ namespace TappData
 {
     public static class PersonGateway
     {
-        public const string CONNECTION_STRING = @"Data Source = (localdb)\MSSQLLocalDB;Initial Catalog = TappDatabase; Integrated Security = True; Connect Timeout = 60; Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
         private static string GetCommandLanguages(string[] languages)
         {
             StringBuilder string_builder = new StringBuilder();
@@ -26,7 +24,7 @@ namespace TappData
         {
             DataTable dt = new DataTable();
 
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 connection.Open();
 
@@ -49,7 +47,7 @@ namespace TappData
             int person_id = default;
             if (username == null || username.Length == 0) return person_id;
 
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 connection.Open();
 
@@ -58,13 +56,13 @@ namespace TappData
                     try
                     {
                         command.CommandType = CommandType.Text;
-                        command.CommandText = @"SELECT * FROM [Person] WHERE [username] = @username";
+                        command.CommandText = @"SELECT * FROM [Person] WHERE [username] = @username AND [is_active] = 1";
                         command.Parameters.AddWithValue("@username", username);
 
-                        person_id = (int) (command.ExecuteScalar() ?? -1);
+                        person_id = (int)(command.ExecuteScalar() ?? -1);
                         return person_id;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         return -1;
                     }
@@ -74,7 +72,7 @@ namespace TappData
 
         public static int Deactive(int id)
         {
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {

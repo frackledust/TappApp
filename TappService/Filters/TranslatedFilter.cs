@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TappModels;
+﻿using TappModels;
 
 namespace TappService.Filters
 {
@@ -11,9 +8,9 @@ namespace TappService.Filters
 
         public bool IsMatch(IItem item)
         {
-            if(item is Project p)
+            if (item is Project p)
             {
-                if(p.HasTranslation)
+                if (p.HasTranslation)
                 {
                     return true;
                 }

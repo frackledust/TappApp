@@ -1,14 +1,10 @@
-﻿using System;
-using TappModels;
-using TappService;
-
-namespace TappConsole
+﻿namespace TappConsole
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            while(true)
+            while (true)
             {
                 Login login = new Login();
 

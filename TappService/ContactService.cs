@@ -63,11 +63,11 @@ namespace TappService
         public static int ReachTranslators(string requester_name, Project project)
         {
             if (project == null) { return 0; }
-            
+
             //Get emails from database
             var data = PersonGateway.GetEmails(new string[] { project.Original_language, project.Translate_language });
 
-            
+
             var emails = ValidateEmails(data);
 
             string email_text = GetEmailText(requester_name, project);
@@ -80,12 +80,12 @@ namespace TappService
             {
                 try
                 {
-                    if(es.Send("TappAppTeam@gmail.cz", email, email_text))
+                    if (es.Send("TappAppTeam@gmail.cz", email, email_text))
                     {
                         emails_sent_count++;
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }

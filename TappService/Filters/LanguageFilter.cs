@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TappModels;
+﻿using TappModels;
 
 namespace TappService.Filters
 {
@@ -23,9 +20,9 @@ namespace TappService.Filters
         {
             if (item is Project p)
             {
-                if(of_translation)
+                if (of_translation)
                 {
-                    if(languages.Contains(p.Translate_language))
+                    if (languages.Contains(p.Translate_language))
                     {
                         return true;
                     }

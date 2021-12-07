@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using TappModels;
@@ -8,13 +7,12 @@ namespace TappData
 {
     public static class ProjectMapper
     {
-        private const string CONNECTION_STRING = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=TappDatabase;Integrated Security=True;Connect Timeout=60;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         private const string insert_project_command = @"INSERT INTO [Project] (requester_id, name, original_language,translate_language, original_file) VALUES (@id,@name,@original,@translate,@text); SELECT CAST(scope_identity() AS int);";
         private const string delete_translator_command = @"UPDATE [Project] SET [translator_id] = NULL, [translate_file] = NULL WHERE [translator_id] = @id AND [is_completed] = 0";
 
         public static bool Create(Project project, int requester_id)
         {
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 using (SqlCommand command = new SqlCommand(insert_project_command, connection))
                 {
@@ -44,13 +42,13 @@ namespace TappData
         {
             Collection<Project> projects = new Collection<Project>();
 
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     command.CommandType = CommandType.Text;
                     command.CommandText = $"SELECT * FROM [Project] WHERE [{role}_id] = {id}";
-                    if(only_not_completed)
+                    if (only_not_completed)
                     {
                         command.CommandText += " AND [is_completed] = 0;";
                     }
@@ -91,7 +89,7 @@ namespace TappData
 
         public static int DeleteTranslations(int translator_id)
         {
-            using (SqlConnection connection = new SqlConnection(CONNECTION_STRING))
+            using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 using (SqlCommand command = new SqlCommand(delete_translator_command, connection))
                 {

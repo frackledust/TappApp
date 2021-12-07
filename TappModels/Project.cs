@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TappModels
+﻿namespace TappModels
 {
     public class Project : IItem
     {

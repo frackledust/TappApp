@@ -7,7 +7,7 @@ namespace TappConsole
 {
     internal class Login
     {
-        private int User_id;
+        private int user_id;
 
         public string Username;
         public string User_role;
@@ -65,7 +65,7 @@ namespace TappConsole
                 ConsoleKeyInfo key = Console.ReadKey();
 
                 Console.Clear();
-                 
+
                 if (key.KeyChar == 'f')
                 {
                     Console.Clear();
@@ -74,9 +74,7 @@ namespace TappConsole
                     Console.WriteLine(">> [language-NAME-0/T], NAME = multiple language names, O - original language");
                     string commands = Console.ReadLine();
 
-
-                    FilterService<Project> filterService = new FilterService<Project>();
-                    Shown_projects = filterService.Filter(commands, User_projects);
+                    Shown_projects = FilterService<Project>.Filter(commands, User_projects);
                 }
                 else if (key.KeyChar == 'a')
                 {
@@ -117,13 +115,14 @@ namespace TappConsole
             //Get username
             Console.WriteLine("\nWrite your username:");
 
-            while(Username == null || Username.Length == 0)
+            while (Username == null || Username.Length == 0)
             {
                 Username = Console.ReadLine();
             }
 
             Console.Clear();
-            User_projects = LoginService.LoadProjects(Username, User_role);
+            user_id = LoginService.GetId(Username);
+            User_projects = LoginService.LoadProjects(user_id, User_role,true);
             Shown_projects = User_projects;
 
             return true;
