@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.ObjectModel;
+using System.IO;
 using TappData;
 using TappModels;
 
@@ -45,14 +46,15 @@ namespace TappService
 
             if (GetParameters(file_path, out string[] parameters))
             {
-                Project project = new Project()
-                {
-                    Id = default,
-                    Name = parameters[0],
-                    Original_language = parameters[1],
-                    Translate_language = parameters[2],
-                    Original_text = original_text,
-                };
+                Project project = new Project
+                (
+                    -1,
+                    parameters[0],
+                    parameters[1],
+                    parameters[2],
+                    original_text,
+                    default
+                );
 
                 //Upload to database
                 if (temporary == false) { ProjectMapper.Create(project, requester_id); }
@@ -65,6 +67,25 @@ namespace TappService
 
         //--------------------------------------------------------------------------------------------------------
 
+        /// <summary>
+        /// Separates projects that changed translation and sends them to DAO
+        ///</summary>
+        public static int SaveProjects(Collection<Project> projects)
+        {
+            Collection<Project> changed = new Collection<Project>();
+            foreach(Project p in projects)
+            {
+                if(p.IsChanged)
+                {
+                    changed.Add(p);
+                }
+            }
+            return ProjectMapper.Update(changed);
+        }
+
+        /// <summary>
+        /// Sends project to DAO to get deleted
+        ///</summary>
         public static void DeleteProject(Project project)
         {
             if (project == null) { return; }

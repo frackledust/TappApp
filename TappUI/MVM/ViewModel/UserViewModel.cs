@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Input;
 using TappModels;
 using TappService;
+using TappUI.MVM.View;
 
 namespace TappUI.MVM.ViewModel
 {
@@ -16,26 +17,53 @@ namespace TappUI.MVM.ViewModel
     class UserViewModel
     {
         #region Fields
+        /// <summary>
+        /// Id of logged user
+        /// </summary>
         public int Id { get; }
 
+        /// <summary>
+        /// Username of logged user
+        /// </summary>
         public string Username { get; }
 
+        /// <summary>
+        /// Projects shown in the list on screen
+        /// </summary>
         public ObservableCollection<Project> ShownProjects { get; }
 
+        /// <summary>
+        /// Projects of loaded user
+        /// </summary>
         public Collection<Project> LoadedProjects { get; }
 
+        /// <summary>
+        /// Selected project from <see cref="ShownProjects"/>
+        /// </summary>
         public Project SelectedProject { get; set; }
 
+        /// <summary>
+        /// String binded to textbox for addition commands
+        /// </summary>
         public string TextCommand { get; set; }
 
+        /// <summary>
+        /// Text with information about app's functionality
+        /// </summary>
         private string _helpText;
         public string HelpText
         {
             get { return _helpText ??= (_helpText = File.ReadAllText(@"assets\helptext.txt")); }
         }
 
+        /// <summary>
+        /// Shows if logged user is a requester
+        /// </summary>
         public bool IsNotRequester { get; }
 
+        /// <summary>
+        /// Shows if logged user was found in database
+        /// </summary>
         public bool IsTemporary { get; } = false;
 
         #endregion
@@ -103,9 +131,18 @@ namespace TappUI.MVM.ViewModel
             get { return _deactiveTranslatorCommand ??= new RelayCommand(() => DeactivateTranslator(), true); }
         }
 
+        private ICommand _logoutCommand;
+        public ICommand LogoutCommand
+        {
+            get { return _logoutCommand ??= new RelayCommand(() => Logout(), true); }
+        }
+
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Binded to Create project button
+        /// </summary>
         public void CreateProject()
         {
             OpenFileDialog openFileDialog = new();
@@ -134,7 +171,9 @@ namespace TappUI.MVM.ViewModel
                 }
             }
         }
-
+        /// <summary>
+        /// Binded to Filter button of requester
+        /// </summary>
         public void Filter()
         {
             try
@@ -150,6 +189,9 @@ namespace TappUI.MVM.ViewModel
             catch (Exception e) { MessageBox.Show(e.Message); return; }
         }
 
+        /// <summary>
+        /// Binded to Stats button
+        /// </summary>
         public void Stats()
         {
             try
@@ -160,6 +202,9 @@ namespace TappUI.MVM.ViewModel
             catch (Exception e) { MessageBox.Show(e.Message); return; }
         }
 
+        /// <summary>
+        /// Binded to Reach Translators button of requester
+        /// </summary>
         public void ReachTranslators()
         {
             if (SelectedProject == null) { MessageBox.Show("Please select project first."); return; }
@@ -174,17 +219,24 @@ namespace TappUI.MVM.ViewModel
             catch (Exception e) { MessageBox.Show(e.Message); }
         }
 
+        /// <summary>
+        /// Binded to Delete Project button
+        /// </summary>
         public void DeleteProject()
         {
             try
             {
                 ProjectService.DeleteProject(SelectedProject);
+                MessageBox.Show($"Project {SelectedProject.Name} sucessfully deleted.");
                 LoadedProjects.Remove(SelectedProject);
                 ShownProjects.Remove(SelectedProject);
             }
             catch (Exception e) { MessageBox.Show(e.Message); return; }
         }
 
+        /// <summary>
+        /// Binded to Give Up button of translator
+        /// </summary>
         public void DeactivateTranslator()
         {
             try
@@ -194,6 +246,27 @@ namespace TappUI.MVM.ViewModel
                 Application.Current.Shutdown();
             }
             catch (Exception e) { MessageBox.Show(e.Message); return; }
+        }
+
+        /// <summary>
+        /// Binded to Logout button
+        /// </summary>
+        public void Logout()
+        {
+            try
+            {
+                if(IsTemporary == false)
+                {
+                    int count = ProjectService.SaveProjects(LoadedProjects);
+                    MessageBox.Show($"{count} translation changes saved into database");
+                }
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message);}
+
+            Window temp = Application.Current.MainWindow;
+            Application.Current.MainWindow = new LoginWindow();
+            Application.Current.MainWindow.Show();
+            temp.Close();
         }
         #endregion
     }

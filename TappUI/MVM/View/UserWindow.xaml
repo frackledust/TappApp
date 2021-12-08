@@ -138,7 +138,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
                 <RowDefinition Height="200"/>
-                <RowDefinition/>
+                <RowDefinition Height="300"/>
                 <RowDefinition/>
 
             </Grid.RowDefinitions>
@@ -185,8 +185,8 @@
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="31"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -216,8 +216,8 @@
                     Margin="8,0,8,0"
                     Content="Delete project"
                     FontSize="10"
-                    VerticalAlignment="Center"
-                    Grid.Row="1" Grid.Column="0"
+                    VerticalAlignment="Top"
+                    Grid.Row="2" Grid.Column="0"
                     Command="{Binding DeleteProjectCommand}"
                     Style="{StaticResource ResourceKey=RequesterButton}"
                         />
@@ -258,13 +258,24 @@
             <!--#region Other buttons-->
             <Button Grid.Row="3" Grid.Column="1"
                     Height="30" Width="84"
-                    Content="Give up"
-                    Command="{Binding DeactiveTranslatorCommand}"
+                    Content="Log out"
+                    Command="{Binding LogoutCommand}"
                     FontSize="10"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
-                    Style="{StaticResource ResourceKey=TranslatorButton}"
+                    Style="{StaticResource ResourceKey=TappButton}"
                     Margin="10"
+                        />
+            
+            <Button Grid.Row="3" Grid.Column="1"
+                Height="30" Width="84"
+                Content="Give up"
+                Command="{Binding DeactiveTranslatorCommand}"
+                FontSize="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Style="{StaticResource ResourceKey=TranslatorButton}"
+                Margin="0,10,108,0"
                         />
             <!--#endregion-->
         </Grid>

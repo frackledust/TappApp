@@ -64,8 +64,7 @@ namespace TappData
         ///</summary>
         public static int GetId(string username)
         {
-            int person_id = default;
-            if (username == null || username.Length == 0) return person_id;
+            if (username == null || username.Length == 0) return -1;
 
             using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
@@ -74,13 +73,21 @@ namespace TappData
                     try
                     {
                         command.CommandType = CommandType.Text;
-                        command.CommandText = @"SELECT * FROM [Person] WHERE [username] = @username AND [is_active] = 1";
+                        command.CommandText = @"SELECT [person_id] FROM [Person] WHERE ([username] = @username AND [is_active] = 1)";
                         command.Parameters.AddWithValue("@username", username);
 
                         connection.Open();
 
-                        person_id = (int)(command.ExecuteScalar() ?? -1);
-                        return person_id;
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            return (int)reader[0];
+                        }
+                        else
+                        {
+                            return -1;
+                        }
                     }
                     catch
                     {

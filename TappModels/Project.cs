@@ -13,7 +13,29 @@
 
         public string Original_text { get; set; }
 
-        public string Translated_text { get; set; }
+        private string _translated_text;
+
+        public Project(int id, string name,
+                       string original_language, string translate_language,
+                       string original_text, string translated_text)
+        {
+            Id = id;
+            Name = name;
+            Original_language = original_language;
+            Translate_language = translate_language;
+            Original_text = original_text;
+            _translated_text = translated_text;
+        }
+
+        public string Translated_text
+        {
+            get => _translated_text;
+            set
+            {
+                IsChanged = true;
+                _translated_text = value;
+            }
+        }
 
         /// <summary>
         /// Checks if translated text is empty
@@ -24,5 +46,12 @@
         /// Dependent on the is_complete status of project's translation in database
         ///</summary>
         public bool IsCompleted { get; set; }
+
+        /// <summary>
+        /// Changes to true when translation of project changes
+        ///</summary>
+        public bool IsChanged { get; private set; } = false;
+
+
     }
 }

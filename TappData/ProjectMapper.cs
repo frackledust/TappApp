@@ -76,14 +76,14 @@ namespace TappData
                         string translated_text = reader["translate_file"] as string;
 
                         Project p = new Project
-                        {
-                            Id = project_id,
-                            Name = name,
-                            Original_language = original_language,
-                            Translate_language = translate_language,
-                            Original_text = original_text,
-                            Translated_text = translated_text
-                        };
+                        (
+                            project_id,
+                            name,
+                            original_language,
+                            translate_language,
+                            original_text,
+                            translated_text
+                        );
 
                         projects.Add(p);
                     }
@@ -97,6 +97,8 @@ namespace TappData
         ///</summary>
         public static int Update(Collection<Project> projects)
         {
+            if(projects.Count == 0) { return 0; }
+
             using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
                 using (SqlCommand command = new SqlCommand(update_translation_command, connection))
@@ -133,7 +135,7 @@ namespace TappData
                     foreach (Project p in projects)
                     {
                         command.Parameters.AddWithValue("@id", p.Id);
-                        command.Parameters.AddWithValue("@translation", p.Translated_text);
+                        command.Parameters.AddWithValue("@translation", p.Translated_text ?? default);
                         connection.Open();
 
                         rows_affected += command.ExecuteNonQuery();
