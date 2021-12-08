@@ -6,7 +6,7 @@ namespace TappService
     /// Use Case 5:
     /// Domain login handling User's parameters
     /// </summary>
-    public static class UserService
+    public static class TranslatorService
     {
         /// <summary>
         /// Deletes unfinished translations and sets acivity status in database to false
@@ -16,6 +16,11 @@ namespace TappService
             ProjectMapper.DeleteTranslations(id);
 
             PersonGateway.Deactive(id);
+        }
+
+        public static void AssignProject(string command, int translator_id)
+        {
+            if(command == null || command.Length == 0) { return; }
         }
     }
 }

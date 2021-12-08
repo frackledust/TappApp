@@ -119,6 +119,12 @@ namespace TappUI.MVM.ViewModel
             get { return _reachTranslatorsCommand ??= new RelayCommand(() => ReachTranslators(), true); }
         }
 
+        private ICommand _assignProjectCommand;
+        public ICommand AssignProjectCommand
+        {
+            get { return _assignProjectCommand ??= new RelayCommand(() => AssignProject(), true); }
+        }
+
         private ICommand _deleteProjectCommand;
         public ICommand DeleteProjectCommand
         {
@@ -220,16 +226,38 @@ namespace TappUI.MVM.ViewModel
         }
 
         /// <summary>
+        /// Binded to Assign Project button of translator
+        /// </summary>
+        public void AssignProject()
+        {
+            try
+            {
+                TranslatorService.AssignProject(TextCommand, Id);
+            }
+            catch(Exception ex) { MessageBox.Show(ex.Message); return; }
+        }
+
+        /// <summary>
         /// Binded to Delete Project button
         /// </summary>
         public void DeleteProject()
         {
             try
             {
-                ProjectService.DeleteProject(SelectedProject);
-                MessageBox.Show($"Project {SelectedProject.Name} sucessfully deleted.");
-                LoadedProjects.Remove(SelectedProject);
-                ShownProjects.Remove(SelectedProject);
+                if(SelectedProject != null)
+                {
+                    if (IsTemporary == false)
+                    {
+                        ProjectService.DeleteProject(SelectedProject);
+                    }
+                    MessageBox.Show($"Project {SelectedProject.Name} sucessfully deleted.");
+                    LoadedProjects.Remove(SelectedProject);
+                    ShownProjects.Remove(SelectedProject);
+                }
+                else
+                {
+                    MessageBox.Show("Please select a project first");
+                }
             }
             catch (Exception e) { MessageBox.Show(e.Message); return; }
         }
@@ -239,9 +267,15 @@ namespace TappUI.MVM.ViewModel
         /// </summary>
         public void DeactivateTranslator()
         {
+            if(IsTemporary)
+            {
+                MessageBox.Show("You are in temporary mode");
+                return;
+            }
+
             try
             {
-                UserService.DeactiveTranslator(Id);
+                TranslatorService.DeactiveTranslator(Id);
                 MessageBox.Show("Deactivation sucessful.");
                 Application.Current.Shutdown();
             }

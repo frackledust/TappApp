@@ -172,12 +172,15 @@
                     Margin="8,0,8,0"
                     HorizontalAlignment="Stretch"
                     Grid.Row="1" Grid.Column="1">
-                <TextBox Text="{Binding SelectedProject.Translated_text}"
+
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <TextBox Text="{Binding SelectedProject.Translated_text}"
                            Background="#2F3136"
                            Foreground="Gray"
                            TextWrapping="Wrap"
                            BorderBrush="{StaticResource DarkBGColorBrush}">
-                </TextBox>
+                    </TextBox>
+                </ScrollViewer>
             </Border>
             <!--#endregion-->
 
@@ -213,7 +216,7 @@
                         />
 
                 <Button Height="20"
-                    Margin="8,0,8,0"
+                    Margin="8,0"
                     Content="Delete project"
                     FontSize="10"
                     VerticalAlignment="Top"
@@ -239,6 +242,19 @@
                         Command="{Binding FilterCommand}"
                         Style="{StaticResource ResourceKey=TappButton}" Margin="8,0,8,0"
                         />
+                
+                <!--#region Assign Project Button -->
+                <Button Height="20"
+                    Margin="8,0"
+                    Content="Assign Project"
+                    FontSize="10"
+                    VerticalAlignment="Top"
+                    Visibility="Hidden"
+                    Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2"
+                    Command="{Binding AssignProjectCommand}"
+                    Style="{StaticResource ResourceKey=TranslatorButton}"
+                        />
+                <!--#endregion-->
             </Grid>
             <!--#endregion-->
 
@@ -249,9 +265,12 @@
                     BorderThickness="10"
                     BorderBrush="#2F3136"
                     Background="#2F3136">
-                <TextBlock Text="{Binding HelpText}"
+
+                <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <TextBlock Text="{Binding HelpText}"
                            TextWrapping="Wrap"
                            Foreground="Gray"/>
+                </ScrollViewer>
             </Border>
             <!--#endregion-->
 
@@ -266,7 +285,7 @@
                     Style="{StaticResource ResourceKey=TappButton}"
                     Margin="10"
                         />
-            
+
             <Button Grid.Row="3" Grid.Column="1"
                 Height="30" Width="84"
                 Content="Give up"
