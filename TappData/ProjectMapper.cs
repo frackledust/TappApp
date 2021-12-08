@@ -102,7 +102,7 @@ namespace TappData
                 using (SqlCommand command = new SqlCommand(update_translation_command, connection))
                 {
                     int rows_affected = 0;
-                    foreach(Project p in projects)
+                    foreach (Project p in projects)
                     {
                         command.Parameters.AddWithValue("@id", p.Id);
                         command.Parameters.AddWithValue("@translation", p.Translated_text);
@@ -171,7 +171,7 @@ namespace TappData
             {
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandType= CommandType.Text;
+                    command.CommandType = CommandType.Text;
                     command.CommandText = "DELETE FROM [Project] WHERE [project_id]=@id";
                     command.Parameters.AddWithValue("@id", project_id);
                     connection.Open();

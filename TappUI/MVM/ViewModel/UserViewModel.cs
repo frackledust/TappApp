@@ -91,6 +91,12 @@ namespace TappUI.MVM.ViewModel
             get { return _reachTranslatorsCommand ??= new RelayCommand(() => ReachTranslators(), true); }
         }
 
+        private ICommand _deleteProjectCommand;
+        public ICommand DeleteProjectCommand
+        {
+            get { return _deleteProjectCommand ??= new RelayCommand(() => DeleteProject(), true); }
+        }
+
         private ICommand _deactiveTranslatorCommand;
         public ICommand DeactiveTranslatorCommand
         {
@@ -166,6 +172,17 @@ namespace TappUI.MVM.ViewModel
                 MessageBox.Show($"Request sent to {translators_count} translators!");
             }
             catch (Exception e) { MessageBox.Show(e.Message); }
+        }
+
+        public void DeleteProject()
+        {
+            try
+            {
+                ProjectService.DeleteProject(SelectedProject);
+                LoadedProjects.Remove(SelectedProject);
+                ShownProjects.Remove(SelectedProject);
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); return; }
         }
 
         public void DeactivateTranslator()

@@ -213,6 +213,16 @@
                         />
 
                 <Button Height="20"
+                    Margin="8,0,8,0"
+                    Content="Delete project"
+                    FontSize="10"
+                    VerticalAlignment="Center"
+                    Grid.Row="1" Grid.Column="0"
+                    Command="{Binding DeleteProjectCommand}"
+                    Style="{StaticResource ResourceKey=RequesterButton}"
+                        />
+
+                <Button Height="20"
                         Content="Stats"
                         FontSize="10"
                         VerticalAlignment="Top"
@@ -260,6 +270,6 @@
         </Grid>
         <!--#endregion-->
     </Grid>
-    
+
 </Window>
 

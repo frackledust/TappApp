@@ -15,6 +15,9 @@ namespace TappService
         /// </summary>
         private static bool IsTxtFile(string file_path) => (file_path != null && file_path.EndsWith("txt"));
 
+        /// <summary>
+        /// Splits file name into file name and languages of project
+        /// </summary>
         private static bool GetParameters(string file_path, out string[] parameters)
         {
             string temp = Path.GetFileName(file_path);
@@ -28,6 +31,10 @@ namespace TappService
             return false;
         }
 
+        /// <summary>
+        /// Creates project based on txt file 
+        /// </summary>
+        /// <param name="temporary">TRUE - project is not uploaded to database</param>
         public static Project CreateProject(string file_path, int requester_id, bool temporary)
         {
             //Check path
@@ -57,5 +64,14 @@ namespace TappService
         }
 
         //--------------------------------------------------------------------------------------------------------
+
+        public static void DeleteProject(Project project)
+        {
+            if (project == null) { return; }
+
+            if (project.Id <= 0) { return; }
+
+            ProjectMapper.DeleteProject(project.Id);
+        }
     }
 }

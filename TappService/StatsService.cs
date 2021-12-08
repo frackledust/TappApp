@@ -12,9 +12,19 @@ namespace TappService
     /// </summary>
     public static class StatsService
     {
+        /// <summary>
+        /// Current DateTime in set format
+        /// </summary>
         public static string TimeStamp { get => DateTime.Now.ToString("dd'_'MM'_'HH'_'mm"); }
-        private static string CsvPath { get => $@"../stats_{TimeStamp}_version.csv"; }
 
+        /// <summary>
+        /// Name of new csv file of stats
+        /// </summary>
+        private static string CsvPath { get => $@".\stats\stats_{TimeStamp}_version.csv"; }
+
+        /// <summary>
+        /// Returns the number of elements in <paramref name="text"/> that ends with {. ? !}
+        /// </summary>
         public static int SentenceCount(string text)
         {
             if (text == null || text.Length == 0) return 0;
@@ -23,6 +33,9 @@ namespace TappService
             return text.Split(split_chars, StringSplitOptions.RemoveEmptyEntries).Length;
         }
 
+        /// <summary>
+        /// Returns the number of elements in <paramref name="text"/> that end with space or new line
+        /// </summary>
         public static int WordCount(string text)
         {
             if (text == null || text.Length == 0) return 0;
@@ -31,6 +44,9 @@ namespace TappService
             return text.Split(split_chars, StringSplitOptions.RemoveEmptyEntries).Length;
         }
 
+        /// <summary>
+        /// Generates Header for table of WordCount and SentenceCounts stats of Project
+        /// </summary>
         private static string GenerateHeader(string col_separator, string row_separator)
         {
             StringBuilder header = new StringBuilder();
@@ -60,6 +76,10 @@ namespace TappService
             return header.ToString();
         }
 
+        /// <summary>
+        /// Generates table of statistics for WordCount and SentenceCounts stats for all <paramref name="projects"/>
+        /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         public static string GenerateStats(Collection<Project> projects, string col_separator, string row_separator)
         {
             if (projects is null) { throw new ArgumentNullException(nameof(projects)); }
@@ -98,6 +118,9 @@ namespace TappService
             return stats.ToString();
         }
 
+        /// <summary>
+        /// Saves generated stats of <paramref name="projects"/> into file
+        /// </summary>
         public static string GenerateStatsToCSV(Collection<Project> projects)
         {
             string stats = GenerateStats(projects, ";", "\n");
