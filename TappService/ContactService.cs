@@ -8,6 +8,10 @@ using TappModels;
 
 namespace TappService
 {
+    /// <summary>
+    /// Use Case 4
+    /// Handles logic around creating emails and notifying users
+    /// </summary>
     public static class ContactService
     {
         private static string GetEmailText(string requester_username, Project project)
@@ -33,6 +37,7 @@ namespace TappService
             {
                 return false;
             }
+
             try
             {
                 var addr = new MailAddress(email);
@@ -46,6 +51,8 @@ namespace TappService
 
         private static List<string> ValidateEmails(DataTable data)
         {
+            if (data == null) return default;
+
             List<string> emails = new List<string>();
 
             foreach (DataRow row in data.Rows)
@@ -64,13 +71,25 @@ namespace TappService
         {
             if (project == null) { return 0; }
 
-            //Get emails from database
-            var data = PersonGateway.GetEmails(new string[] { project.Original_language, project.Translate_language });
+            //>> Get emails from database
+            DataTable data;
+            try
+            {
+                data = PersonGateway.GetEmails(new string[] { project.Original_language, project.Translate_language });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
+            if (data == null) return 0;
 
+            //>> Validate emails
             var emails = ValidateEmails(data);
 
             string email_text = GetEmailText(requester_name, project);
+
+            if (emails == null || emails.Count == 0) return 0;
 
             //>> Send emails
             int emails_sent_count = 0;

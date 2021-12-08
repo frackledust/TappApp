@@ -6,7 +6,7 @@ namespace TappService.Filters
     {
         public static string Command { get; }
 
-        public virtual bool IsMatch(IItem product)
+        public virtual bool IsMatch(IFilterable product)
         {
             return false;
         }

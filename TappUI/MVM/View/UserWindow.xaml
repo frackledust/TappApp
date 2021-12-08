@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:viewmodel="clr-namespace:TappUI.MVM.ViewModel"
         mc:Ignorable="d"
         Height="640" Width="730"
         Background="{StaticResource LightBGColorBrush}"
@@ -22,7 +21,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <!-- Up menu -->
+        <!--#region Up Grid-->
         <Border Grid.ColumnSpan="3"
                 Style="{StaticResource ColorfulBorder}"
                 MouseDown="Border_MouseDown">
@@ -33,6 +32,8 @@
                        FontWeight="Light"
                        FontSize="20" Margin="10,0,0,0"
                        />
+
+                <!--#region Controls in up right corner-->
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal"
                             Margin="0,0,5,0">
@@ -63,13 +64,16 @@
                             Click="ButtonClose_Click"
                             />
                 </StackPanel>
+                <!--#endregion-->
 
             </Grid>
 
         </Border>
+        <!--#endregion-->
 
-        <!-- Side menu -->
-        <Grid Background="{StaticResource DarkBGColorBrush}" Grid.Row="1">
+        <!--#region Left side menu-->
+        <Grid Background="{StaticResource DarkBGColorBrush}"
+              Grid.Row="1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
@@ -93,6 +97,7 @@
                       IsSynchronizedWithCurrentItem="True"
                       ItemContainerStyle="{StaticResource ProjectsCard}"/>
 
+            <!--#region User card-->
             <StackPanel Grid.Row="2"
                         Orientation="Horizontal"
                         Background="#292b2F">
@@ -115,19 +120,20 @@
 
             </StackPanel>
 
-            <Button     Grid.Row="2"
-                        Height="30" Width="84"
-                        Content="Create project"
-                        Command="{Binding CreateProjectCommand}"
-                        FontSize="10"
-                        HorizontalAlignment="Right"
-                        Style="{StaticResource ResourceKey=RequesterButton}"
-                        Margin="0,0,15,0"
-                        />
-
+            <Button Grid.Row="2"
+                    Height="30" Width="84"
+                    Content="Create project"
+                    Command="{Binding CreateProjectCommand}"
+                    FontSize="10"
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource ResourceKey=RequesterButton}"
+                    Margin="0,0,15,0"
+                    />
+            <!--#endregion-->
         </Grid>
+        <!--#endregion-->
 
-        <!-- Right panel -->
+        <!--#region Main panel -->
         <Grid Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"/>
@@ -142,39 +148,40 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-
+            <!--#region Original text textbox-->
             <Border BorderThickness="20"
-                    BorderBrush="#2F3136"
-                    MinHeight="200"
-                    MinWidth="250"
-                    HorizontalAlignment="Center"
-                    Margin="5,0,5,0"
+                    BorderBrush="{StaticResource DarkBGColorBrush}"
+                    HorizontalAlignment="Stretch"
+                    Margin="8,0,8,0"
                     Grid.Row="1">
+
                 <ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <TextBlock Text="{Binding SelectedProject.Original_text}"
-                       Background="#2F3136"
+                       Background="{StaticResource DarkBGColorBrush}"
                        Foreground="Gray"
                        TextWrapping="Wrap">
                     </TextBlock>
                 </ScrollViewer>
-            </Border>
 
+            </Border>
+            <!--#endregion-->
+
+            <!--#region Translation textbox-->
             <Border BorderThickness="20"
-                    BorderBrush="#2F3136"
-                    MinHeight="200"
-                    MinWidth="250"
-                    Margin="5,0,5,0"
-                    HorizontalAlignment="Center"
+                    BorderBrush="{StaticResource DarkBGColorBrush}"
+                    Margin="8,0,8,0"
+                    HorizontalAlignment="Stretch"
                     Grid.Row="1" Grid.Column="1">
                 <TextBox Text="{Binding SelectedProject.Translated_text}"
                            Background="#2F3136"
                            Foreground="Gray"
                            TextWrapping="Wrap"
-                           BorderBrush="#2F3136">
+                           BorderBrush="{StaticResource DarkBGColorBrush}">
                 </TextBox>
             </Border>
+            <!--#endregion-->
 
-            <!-- Middle panel -->
+            <!--#region Middle controls panel-->
             <Grid Grid.Row="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="45"/>
@@ -223,7 +230,9 @@
                         Style="{StaticResource ResourceKey=TappButton}" Margin="8,0,8,0"
                         />
             </Grid>
+            <!--#endregion-->
 
+            <!--#region Helper panel-->
             <Border Grid.Row="2"
                     Grid.Column="3"
                     Margin="8"
@@ -234,8 +243,9 @@
                            TextWrapping="Wrap"
                            Foreground="Gray"/>
             </Border>
+            <!--#endregion-->
 
-
+            <!--#region Other buttons-->
             <Button Grid.Row="3" Grid.Column="1"
                     Height="30" Width="84"
                     Content="Give up"
@@ -246,7 +256,10 @@
                     Style="{StaticResource ResourceKey=TranslatorButton}"
                     Margin="10"
                         />
+            <!--#endregion-->
         </Grid>
+        <!--#endregion-->
     </Grid>
+    
 </Window>
 

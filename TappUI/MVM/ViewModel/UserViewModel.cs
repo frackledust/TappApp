@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 using TappModels;
@@ -9,6 +10,9 @@ using TappService;
 
 namespace TappUI.MVM.ViewModel
 {
+    /// <summary>
+    /// Encapsulates data and controllers for UserView.xaml
+    /// </summary>
     class UserViewModel
     {
         #region Fields
@@ -22,11 +26,12 @@ namespace TappUI.MVM.ViewModel
 
         public Project SelectedProject { get; set; }
 
-        public string TextCommand { get; set; } // INotifyPropertyChanged
+        public string TextCommand { get; set; }
 
-        public static string HelpText
+        private string _helpText;
+        public string HelpText
         {
-            get => @"Some text for now";
+            get { return _helpText ??= (_helpText = File.ReadAllText(@"assets\helptext.txt")); }
         }
 
         public bool IsNotRequester { get; }
@@ -36,6 +41,9 @@ namespace TappUI.MVM.ViewModel
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserViewModel"/> class.
+        /// </summary>
         public UserViewModel(string username, string role)
         {
             Username = username;
@@ -148,27 +156,27 @@ namespace TappUI.MVM.ViewModel
 
         public void ReachTranslators()
         {
-            if (SelectedProject == null)
-            {
-                MessageBox.Show("Please select project first.");
-                return;
-            }
+            if (SelectedProject == null) { MessageBox.Show("Please select project first."); return; }
 
-            if (SelectedProject.HasTranslation)
-            {
-                MessageBox.Show("Select project without translation.");
-                return;
-            }
+            if (SelectedProject.HasTranslation) { MessageBox.Show("Select project without translation."); return; }
 
-            int translators_count = ContactService.ReachTranslators(Username, SelectedProject);
-            MessageBox.Show($"Request sent to {translators_count} translators!");
+            try
+            {
+                int translators_count = ContactService.ReachTranslators(Username, SelectedProject);
+                MessageBox.Show($"Request sent to {translators_count} translators!");
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); }
         }
 
         public void DeactivateTranslator()
         {
-            MessageBox.Show("Deactivation sucessful.");
-            UserService.DeactiveTranslator(Id);
-            Application.Current.Shutdown();
+            try
+            {
+                UserService.DeactiveTranslator(Id);
+                MessageBox.Show("Deactivation sucessful.");
+                Application.Current.Shutdown();
+            }
+            catch (Exception e) { MessageBox.Show(e.Message); return; }
         }
         #endregion
     }

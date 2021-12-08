@@ -5,6 +5,9 @@ using TappService;
 
 namespace TappConsole
 {
+    /// <summary>
+    /// Handles console commands of the application
+    ///</summary>
     internal class Login
     {
         private int user_id;
@@ -19,16 +22,13 @@ namespace TappConsole
         private Collection<Project> shown_projects;
         public Collection<Project> Shown_projects
         {
-            get
-            {
-                return shown_projects;
-            }
-            set
-            {
-                shown_projects = value;
-            }
+            get => shown_projects;
+            set => shown_projects = value;
         }
 
+        /// <summary>
+        /// Prints short description of each project into console
+        /// </summary>
         public void ShowProjects()
         {
             if (Shown_projects == null)
@@ -45,11 +45,17 @@ namespace TappConsole
             }
         }
 
+        /// <summary>
+        /// Resets shown projects to user projects
+        ///</summary>
         public void ShowAllProjects()
         {
             Shown_projects = User_projects;
         }
 
+        /// <summary>
+        /// In console presents commands of requester and their execution
+        ///</summary>
         public void RequesterLoop()
         {
             while (true)
@@ -94,6 +100,9 @@ namespace TappConsole
             }
         }
 
+        /// <summary>
+        /// Login commands in console
+        /// </summary>
         public bool Init()
         {
             Console.WriteLine("Welcome in the app");
@@ -122,7 +131,7 @@ namespace TappConsole
 
             Console.Clear();
             user_id = LoginService.GetId(Username);
-            User_projects = LoginService.LoadProjects(user_id, User_role,true);
+            User_projects = LoginService.LoadProjects(user_id, User_role, true);
             Shown_projects = User_projects;
 
             return true;

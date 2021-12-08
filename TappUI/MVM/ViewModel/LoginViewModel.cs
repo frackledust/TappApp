@@ -4,6 +4,9 @@ using TappUI.MVM.View;
 
 namespace TappUI.MVM.ViewModel
 {
+    /// <summary>
+    /// Encapsulates data and controllers for LoginView.xaml
+    /// </summary>
     public class LoginViewModel
     {
         #region Fields

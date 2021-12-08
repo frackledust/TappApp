@@ -4,9 +4,14 @@ using TappService.Filters;
 
 namespace TappService
 {
-    public static class FilterService<T> where T : IItem
+    /// <summary>
+    /// Use Case 2 - manual filtering of objects
+    /// </summary>
+    public static class FilterService<T> where T : IFilterable
     {
-        //Checks if item fits for all filters
+        /// <summary>
+        /// Checks if <paramref name="item"/> fits for all <paramref name="filters"/>
+        /// </summary>
         private static bool FitsFilters(Collection<IFilter> filters, T item)
         {
             for (int i = 0; i < filters.Count; i++)
@@ -19,7 +24,9 @@ namespace TappService
             return true;
         }
 
-        //Returns a filtered collection of items based on filters
+        /// <summary>
+        /// Returns a filtered collection from <paramref name="all_items"/> based on <paramref name="filters"/>
+        /// </summary>
         private static Collection<T> Filter(Collection<IFilter> filters, Collection<T> all_items)
         {
             if (filters.Count == 0)
@@ -40,20 +47,22 @@ namespace TappService
             return result;
         }
 
-        //Returns a collection of filtered items based on string of commands
+        /// <summary>
+        /// Returns filtered collection from <paramref name="all_items"/> based on <paramref name="filters_commands"/>
+        /// </summary>
         public static Collection<T> Filter(string filters_commands, Collection<T> all_items)
         {
             if (filters_commands == null || filters_commands.Length == 0) { return all_items; }
 
             Collection<IFilter> filters = new Collection<IFilter>();
 
-            //Translated command
+            //Translated command add
             if (filters_commands.Contains(TranslatedFilter.Command))
             {
                 filters.Add(new TranslatedFilter());
             }
 
-            //Languages command
+            //Languages command add
             if (filters_commands.Contains(LanguageFilter.Command))
             {
                 string command = filters_commands[filters_commands.IndexOf(LanguageFilter.Command)..];

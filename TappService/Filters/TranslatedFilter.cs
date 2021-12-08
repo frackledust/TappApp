@@ -6,7 +6,7 @@ namespace TappService.Filters
     {
         public static string Command { get => "translated"; }
 
-        public bool IsMatch(IItem item)
+        public bool IsMatch(IFilterable item)
         {
             if (item is Project p)
             {

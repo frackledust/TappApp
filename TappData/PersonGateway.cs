@@ -5,8 +5,14 @@ using System.Text;
 
 namespace TappData
 {
+    /// <summary>
+    /// Handles database quaries over table Person
+    ///</summary>
     public static class PersonGateway
     {
+        /// <summary>
+        /// Creates database filter command based on spoken <paramref name="languages"/>
+        ///</summary>
         private static string GetCommandLanguages(string[] languages)
         {
             StringBuilder string_builder = new StringBuilder();
@@ -20,28 +26,42 @@ namespace TappData
             return string_builder.ToString();
         }
 
+        /// <summary>
+        /// Gets emails from people who speak all mentioned <paramref name="languages"/>
+        ///</summary>
         public static DataTable GetEmails(string[] languages)
         {
             DataTable dt = new DataTable();
 
             using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
-                connection.Open();
-
                 using (SqlCommand command = connection.CreateCommand())
                 {
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = GetCommandLanguages(languages);
+                    try
+                    {
+                        command.CommandType = CommandType.Text;
+                        command.CommandText = GetCommandLanguages(languages);
 
-                    SqlDataReader reader = command.ExecuteReader();
+                        connection.Open();
 
-                    dt.Load(reader);
+                        SqlDataReader reader = command.ExecuteReader();
 
-                    return dt;
+                        dt.Load(reader);
+
+                        return dt;
+                    }
+                    catch (SqlException ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        throw ex;
+                    }
                 }
             }
         }
 
+        /// <summary>
+        /// Gets person_id based on <paramref name="username"/>
+        ///</summary>
         public static int GetId(string username)
         {
             int person_id = default;
@@ -49,8 +69,6 @@ namespace TappData
 
             using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))
             {
-                connection.Open();
-
                 using (SqlCommand command = connection.CreateCommand())
                 {
                     try
@@ -58,6 +76,8 @@ namespace TappData
                         command.CommandType = CommandType.Text;
                         command.CommandText = @"SELECT * FROM [Person] WHERE [username] = @username AND [is_active] = 1";
                         command.Parameters.AddWithValue("@username", username);
+
+                        connection.Open();
 
                         person_id = (int)(command.ExecuteScalar() ?? -1);
                         return person_id;
@@ -70,6 +90,9 @@ namespace TappData
             }
         }
 
+        /// <summary>
+        /// Sets is_active status of person with <paramref name="id"/> to 0/false
+        ///</summary>
         public static int Deactive(int id)
         {
             using (SqlConnection connection = new SqlConnection(DBConnector.GetConnectionString()))

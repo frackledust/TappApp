@@ -4,7 +4,7 @@ using System.Windows.Input;
 namespace TappUI.MVM.View
 {
     /// <summary>
-    /// Interaction logic for RequesterWindow.xaml
+    /// Interaction logic for UserWindow.xaml
     /// </summary>
     public partial class RequesterWindow : Window
     {

@@ -6,6 +6,10 @@ using TappModels;
 
 namespace TappService
 {
+    /// <summary>
+    /// Use Case 3:
+    /// Creating of statistics about projects
+    /// </summary>
     public static class StatsService
     {
         public static string TimeStamp { get => DateTime.Now.ToString("dd'_'MM'_'HH'_'mm"); }
@@ -27,6 +31,35 @@ namespace TappService
             return text.Split(split_chars, StringSplitOptions.RemoveEmptyEntries).Length;
         }
 
+        private static string GenerateHeader(string col_separator, string row_separator)
+        {
+            StringBuilder header = new StringBuilder();
+
+            header.Append("Project name");
+            header.Append(col_separator);
+
+            header.Append("Original language");
+            header.Append(col_separator);
+
+            header.Append("Translation language");
+            header.Append(col_separator);
+
+            header.Append("Original words");
+            header.Append(col_separator);
+
+            header.Append("Translated words");
+            header.Append(col_separator);
+
+            header.Append("Original sentences");
+            header.Append(col_separator);
+
+            header.Append("Translated sentences");
+
+            header.Append(row_separator);
+
+            return header.ToString();
+        }
+
         public static string GenerateStats(Collection<Project> projects, string col_separator, string row_separator)
         {
             if (projects is null) { throw new ArgumentNullException(nameof(projects)); }
@@ -34,27 +67,7 @@ namespace TappService
             StringBuilder stats = new StringBuilder();
 
             //Header
-            stats.Append("Project name");
-            stats.Append(col_separator);
-
-            stats.Append("Original language");
-            stats.Append(col_separator);
-
-            stats.Append("Translation language");
-            stats.Append(col_separator);
-
-            stats.Append("Original words");
-            stats.Append(col_separator);
-
-            stats.Append("Translated words");
-            stats.Append(col_separator);
-
-            stats.Append("Original sentences");
-            stats.Append(col_separator);
-
-            stats.Append("Translated sentences");
-
-            stats.Append(row_separator);
+            stats.Append(GenerateHeader(col_separator, row_separator));
 
             foreach (var project in projects)
             {

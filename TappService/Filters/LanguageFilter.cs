@@ -16,7 +16,7 @@ namespace TappService.Filters
             of_translation = _of_translation;
         }
 
-        public bool IsMatch(IItem item)
+        public bool IsMatch(IFilterable item)
         {
             if (item is Project p)
             {

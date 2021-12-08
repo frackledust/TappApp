@@ -4,8 +4,15 @@ using TappModels;
 
 namespace TappService
 {
+    /// <summary>
+    /// Use Case 1:
+    /// Domain logic handing project's parameters
+    /// </summary>
     public static class ProjectService
     {
+        /// <summary>
+        /// Checks if <paramref name="file_path"/> leads to a txt file
+        /// </summary>
         private static bool IsTxtFile(string file_path) => (file_path != null && file_path.EndsWith("txt"));
 
         private static bool GetParameters(string file_path, out string[] parameters)
@@ -48,5 +55,7 @@ namespace TappService
 
             return null;
         }
+
+        //--------------------------------------------------------------------------------------------------------
     }
 }
