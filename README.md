@@ -4,6 +4,14 @@ Connects users who need help or want to help with translating txt files of other
 
 ## Current functionality of the app:
 
+### LOGIN
+Users registered in database in format (username, email, languages they speak):
+
+	('User1', 'u1@email.cz', 'czech'),
+	('User2', 'u2@email.cz', 'english, czech'),
+	('User3', 'u3@email.cz', 'chinese, english'),
+	('User4', 'u4@email.cz', 'english,german,chinese,czech');
+
 ### CREATE PROJECT
 Select file from file explorer and upload it to the database with file name: NAME_OriginalLanguage_TranslateLanguage.txt  
 **example file name:** Test_English_German.txt
