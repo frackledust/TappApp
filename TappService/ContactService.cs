@@ -69,7 +69,7 @@ namespace TappService
         }
         public static int ReachTranslators(string requester_name, Project project)
         {
-            if (project == null) { return 0; }
+            if (project == null) { return -1; }
 
             //>> Get emails from database
             DataTable data;
@@ -82,14 +82,14 @@ namespace TappService
                 throw ex;
             }
 
-            if (data == null) return 0;
+            if (data == null) return -2;
 
             //>> Validate emails
             var emails = ValidateEmails(data);
 
             string email_text = GetEmailText(requester_name, project);
 
-            if (emails == null || emails.Count == 0) return 0;
+            if (emails == null || emails.Count == 0) return -3;
 
             //>> Send emails
             int emails_sent_count = 0;

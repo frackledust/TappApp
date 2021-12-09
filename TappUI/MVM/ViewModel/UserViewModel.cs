@@ -220,7 +220,15 @@ namespace TappUI.MVM.ViewModel
             try
             {
                 int translators_count = ContactService.ReachTranslators(Username, SelectedProject);
-                MessageBox.Show($"Request sent to {translators_count} translators!");
+                if(translators_count > 0)
+                {
+                    MessageBox.Show($"Request sent to {translators_count} translators!");
+                }
+                else
+                {
+                    MessageBox.Show($"We couldn't contact any fitting translators.");
+                }
+
             }
             catch (Exception e) { MessageBox.Show(e.Message); }
         }
